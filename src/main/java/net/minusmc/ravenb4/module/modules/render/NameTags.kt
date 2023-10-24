@@ -148,8 +148,7 @@ class NameTags: Module("NameTags", ModuleCategory.render){
     }
 
     private fun calculateAutoScale(distance: Double): Double {
-        // Add your auto-scaling logic here
-        val scale = 1.0 // Replace with your calculation
+        val scale = 1.0
         return max(0.5, scale)
     }
 
