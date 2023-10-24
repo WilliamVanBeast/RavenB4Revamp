@@ -24,15 +24,15 @@ class AntiKnockback: Module("AntiKnockback", ModuleCategory.world){
     private val groundCheck = TickSetting("Ground Check", false);
 
     init {
-        this.settings.add(desc);
+        registerSetting(desc);
 
-        this.settings.add(horizontal);
-        this.settings.add(vertical);
+        registerSetting(horizontal);
+        registerSetting(vertical);
 
-        //this.settings.add(cancelExplosion); -- Doesn't matter whatsoever
-        this.settings.add(damageBoost);
-        this.settings.add(boostMutiplier);
-        this.settings.add(groundCheck);
+        //registerSetting(cancelExplosion); -- Doesn't matter whatsoever
+        registerSetting(damageBoost);
+        registerSetting(boostMutiplier);
+        registerSetting(groundCheck);
     }
 
     //Gosh, why the heck he do it like this, where is the packet event :sob:

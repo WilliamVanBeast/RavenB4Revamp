@@ -15,8 +15,8 @@ class BreakProgress: Module("BreakProgress", ModuleCategory.world){
     private val showBedAura = TickSetting("Show BedAura", true);
 
     init {
-        this.settings.add(showManual);
-        this.settings.add(showBedAura);
+        registerSetting(showManual);
+        registerSetting(showBedAura);
     }
 
     @SubscribeEvent

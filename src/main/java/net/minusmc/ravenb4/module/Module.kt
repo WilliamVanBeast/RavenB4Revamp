@@ -19,10 +19,6 @@ open class Module(val name: String, val category: ModuleCategory, val descriptio
     protected val mc = Minecraft.getMinecraft()
     private var isToggled = false
 
-    fun addSetting(setting: Setting<*>) {
-        settings.add(setting);
-    }
-
     fun getConfigAsJson(): JsonObject {
         val settings = JsonObject()
         for (setting in this.settings) {
@@ -91,8 +87,6 @@ open class Module(val name: String, val category: ModuleCategory, val descriptio
         }
         return null
     }
-
-    fun registerSettings(vararg settings: Setting) = for (setting in settings) settings.add(setting)
 
     fun registerSetting(setting: Setting<*>) = settings.add(setting)
 
