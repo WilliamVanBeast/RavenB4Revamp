@@ -9,8 +9,8 @@ class Spin: Module("Spin", ModuleCategory.funs){
     private val speedSetting = SliderSetting("Speed", 25.0, 1.0, 80.0, 1.0);
 
     init {
-        this.addSetting(yawSetting)
-        this.addSetting(speedSetting)
+        registerSetting(yawSetting)
+        registerSetting(speedSetting)
     }
 
 }
