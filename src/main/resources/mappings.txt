@@ -40,6 +40,29 @@ bu -> HypixelUtils
 bx -> Reach
 by -> ChestESP
 bz -> Speed
+c -> StopMotion
+ca -> ?
+cb -> Shaders
+cc -> BlockPosUtils?
+cd -> ?
+ce -> Decompile error
+cg -> Murder Mystery
+ch -> HUD
+ci -> ?
+cj -> Gui
+ck -> Config
+cm -> Nametags
+cn -> URLUtils
+co -> AutoJump
+cp -> Latency Alerts
+cq -> ?
+cr -> Delay Remover
+cs -> ?
+cu -> ?
+cw -> Anticheat
+cx -> ?
+cy -> Decompile error
+cz -> RenderUtils
 fe -> SliderSetting
 et -> BoolValue
 ge -> Module
