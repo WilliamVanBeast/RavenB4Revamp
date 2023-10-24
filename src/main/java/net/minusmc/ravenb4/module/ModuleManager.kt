@@ -1,13 +1,19 @@
 package net.minusmc.ravenb4.module
 
 import net.minecraft.client.gui.FontRenderer
-import net.minusmc.ravenb4.module.modules.funs.Spin
+import net.minusmc.ravenb4.module.modules.funs.*
+import net.minusmc.ravenb4.module.modules.world.*
 
 object ModuleManager {
     val modules = mutableListOf<Module>()
 
     init {
+        //World
+        modules.add(BreakProgress());
+
+        //Fun
         modules.add(Spin());
+
         modules.sortedBy { it.name }
     }
 
