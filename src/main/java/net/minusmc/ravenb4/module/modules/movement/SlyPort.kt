@@ -7,11 +7,9 @@ import net.minusmc.ravenb4.module.ModuleCategory
 import net.minusmc.ravenb4.setting.impl.DescriptionSetting
 import net.minusmc.ravenb4.setting.impl.SliderSetting
 import net.minusmc.ravenb4.setting.impl.TickSetting
+import net.minusmc.ravenb4.utils.RotationUtils
 
-
-class SlyPort : Module("SlyPort", ModuleCategory.movement, "tp behind enemies") {
-    private val s = false
-
+class SlyPort : Module("SlyPort", ModuleCategory.movement) {
     var desc = DescriptionSetting("Desc", "Teleport behind enemies.");
     var range = SliderSetting("Range", 6.0, 2.0, 15.0, 1.0)
     var playSound = TickSetting("Play sound", true)
@@ -41,7 +39,7 @@ class SlyPort : Module("SlyPort", ModuleCategory.movement, "tp behind enemies") 
         val z = en.posZ - vec.zCoord * 2.5
         mc.thePlayer.setPosition(x, mc.thePlayer.posY, z)
         if (aimSetting.get()) {
-            //Utils.Player.aim(en, 0.0f, false)
+            RotationUtils.aim(en, 0.0f, false);
         }
     }
 

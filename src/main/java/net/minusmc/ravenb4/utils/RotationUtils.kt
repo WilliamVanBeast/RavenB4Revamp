@@ -1,35 +1,27 @@
 package net.minusmc.ravenb4.utils
 
+import net.minecraft.entity.Entity
+import net.minecraft.entity.EntityLivingBase
+import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.util.MathHelper
 import kotlin.math.sqrt
 import kotlin.math.atan2
 
-object RotationUtils: MinecraftInstance {
+object RotationUtils: MinecraftInstance() {
 
-	fun aim(entity: Entity, ps: Float, pc: Boolean) {
+	fun aim(entity: Entity, ps: Float, isSilent: Boolean) {
 		entity ?: return
 
 		val t = getRotationToEntity(entity)
 		t ?: return
 
 		val pitch = t.pitch + 4f + ps
-		if (pc) mc.netHandler.addToSendQueue(new C05PacketPlayerLook(y, p, mc.thePlayer.onGround));
-
-         if (en != null) {
-            float[] t = getTargetRotations(en);
-            if (t != null) {
-               float y = t[0];
-               float p = t[1] + 4.0F + ps;
-               if (pc) {
-                  
-               } else {
-                  mc.thePlayer.rotationYaw = y;
-                  mc.thePlayer.rotationPitch = p;
-               }
-            }
-
-         }
-      }
+		if (isSilent) mc.netHandler.addToSendQueue(C03PacketPlayer.C05PacketPlayerLook(t.yaw, pitch, mc.thePlayer.onGround));
+		else {
+			mc.thePlayer.rotationYaw = t.yaw;
+			mc.thePlayer.rotationPitch = pitch;
+		}
+	}
 
 	fun getRotationToEntity(entity: Entity): Rotation? {
 		entity ?: return null
@@ -39,7 +31,7 @@ object RotationUtils: MinecraftInstance {
 		var diff = 0.0
 
 		if (entity is EntityLivingBase) {
-			diff = entity.posY + entity.getEyeHeight().toDouble() * 0.9 - mc.thePlayer.posY - mc.thePlayer.getEyeHeight.toDouble()
+			diff = entity.posY + entity.getEyeHeight().toDouble() * 0.9 - mc.thePlayer.posY - mc.thePlayer.getEyeHeight().toDouble()
 		} else {
 			diff = (entity.entityBoundingBox.minY + entity.entityBoundingBox.maxY) / 2.0 - mc.thePlayer.posY - mc.thePlayer.getEyeHeight().toDouble()
 		}

@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft
 import net.minecraftforge.common.MinecraftForge
 import net.minusmc.ravenb4.setting.Setting
 import net.minusmc.ravenb4.setting.impl.TickSetting
+import net.minusmc.ravenb4.utils.MinecraftInstance
 import org.lwjgl.input.Keyboard
 
 open class Module(val name: String, val category: ModuleCategory): MinecraftInstance() {

@@ -7,7 +7,7 @@ abstract class Setting<T> (val name: String, protected var value: T) {
     open val settingType = ""
     protected val defaultValue = value
 
-    override fun get() = value
+    open fun get() = value
 
     open fun set(newValue: T) {
         this.value = newValue

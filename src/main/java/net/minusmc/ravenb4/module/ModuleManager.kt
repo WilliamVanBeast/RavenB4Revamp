@@ -5,6 +5,7 @@ import net.minusmc.ravenb4.module.modules.combat.*
 import net.minusmc.ravenb4.module.modules.funs.*
 import net.minusmc.ravenb4.module.modules.movement.*
 import net.minusmc.ravenb4.module.modules.others.*
+import net.minusmc.ravenb4.module.modules.player.DelayRemover
 import net.minusmc.ravenb4.module.modules.render.*
 import net.minusmc.ravenb4.module.modules.world.*
 
@@ -21,6 +22,9 @@ object ModuleManager {
         //World
         modules.add(BreakProgress());
         modules.add(Scaffold2());
+
+        //Player
+        modules.add(DelayRemover());
 
         //Render
         modules.add(NameTags());
