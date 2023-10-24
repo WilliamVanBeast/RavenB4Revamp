@@ -19,12 +19,12 @@ class Reach: Module("Reach", ModuleCategory.combat){
     private val hitThroughBlocks: TickSetting = TickSetting("Hit Through Blocks", false)
 
     init {
-        registerSetting(minReach)
-        registerSetting(maxReach)
-        registerSetting(weaponOnly)
-        registerSetting(movingOnly)
-        registerSetting(sprintOnly)
-        registerSetting(hitThroughBlocks)
+        addSetting(minReach)
+        addSetting(maxReach)
+        addSetting(weaponOnly)
+        addSetting(movingOnly)
+        addSetting(sprintOnly)
+        addSetting(hitThroughBlocks)
     }
 
     @SubscribeEvent

@@ -12,18 +12,18 @@ import net.minusmc.ravenb4.setting.impl.TickSetting
 class SlyPort : Module("SlyPort", ModuleCategory.movement, "tp behind enemies") {
     private val s = false
 
-    var desc: DescriptionSetting = DescriptionSetting("Desc", "Teleport behind enemies.");
-    var range: SliderSetting = SliderSetting("Range", 6.0, 2.0, 15.0, 1.0)
-    var playSound: TickSetting = TickSetting("Play sound", true)
-    var aimSetting: TickSetting = TickSetting("Aim", true)
-    var playerOnly: TickSetting = TickSetting("Players only", true)
+    var desc = DescriptionSetting("Desc", "Teleport behind enemies.");
+    var range = SliderSetting("Range", 6.0, 2.0, 15.0, 1.0)
+    var playSound = TickSetting("Play sound", true)
+    var aimSetting = TickSetting("Aim", true)
+    var playerOnly = TickSetting("Players only", true)
 
     init {
-        registerSetting(desc)
-        registerSetting(range)
-        registerSetting(aimSetting)
-        registerSetting(playSound)
-        registerSetting(playerOnly)
+        addSetting(desc)
+        addSetting(range)
+        addSetting(aimSetting)
+        addSetting(playSound)
+        addSetting(playerOnly)
     }
 
     override fun onEnable() {
@@ -32,7 +32,7 @@ class SlyPort : Module("SlyPort", ModuleCategory.movement, "tp behind enemies") 
         disable()
     }
 
-    private fun tp(en: Entity) {
+    private fun tp (en: Entity) {
         if (playSound.get()) {
             mc.thePlayer.playSound("mob.endermen.portal", 1.0f, 1.0f)
         }

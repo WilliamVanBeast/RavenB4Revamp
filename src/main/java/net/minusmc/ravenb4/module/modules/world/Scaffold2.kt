@@ -32,16 +32,16 @@ class Scaffold2: Module("Scaffold2", ModuleCategory.world){
     var towerSpeed: SliderSetting = SliderSetting("Tower speed", 0.42, 0.36, 0.8, 0.01)
 
     init {
-        registerSetting(bestWhileMovingForward);
-        registerSetting(allowSprinting);
-        registerSetting(highlightBlock);
-        registerSetting(placeOnPost);
-        registerSetting(safeWalk);
-        registerSetting(silentSwing);
-        registerSetting(motion);
-        registerSetting(placeDelay);
-        registerSetting(tower);
-        registerSetting(towerSpeed);
+        addSetting(bestWhileMovingForward);
+        addSetting(allowSprinting);
+        addSetting(highlightBlock);
+        addSetting(placeOnPost);
+        addSetting(safeWalk);
+        addSetting(silentSwing);
+        addSetting(motion);
+        addSetting(placeDelay);
+        addSetting(tower);
+        addSetting(towerSpeed);
     }
 
     private fun handleTower() {

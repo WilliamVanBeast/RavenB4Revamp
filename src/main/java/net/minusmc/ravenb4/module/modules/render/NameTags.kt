@@ -31,16 +31,16 @@ class NameTags: Module("NameTags", ModuleCategory.render){
 
 
     init {
-        registerSetting(yOffset);
-        registerSetting(scale);
-        registerSetting(autoScale);
-        registerSetting(drawRect);
-        registerSetting(showHealth);
-        registerSetting(showHitsToKill);
-        registerSetting(showInvis);
-        registerSetting(removeTags);
-        registerSetting(renderFriends);
-        registerSetting(renderEnemies);
+        addSetting(yOffset);
+        addSetting(scale);
+        addSetting(autoScale);
+        addSetting(drawRect);
+        addSetting(showHealth);
+        addSetting(showHitsToKill);
+        addSetting(showInvis);
+        addSetting(removeTags);
+        addSetting(renderFriends);
+        addSetting(renderEnemies);
     }
 
     @SubscribeEvent
