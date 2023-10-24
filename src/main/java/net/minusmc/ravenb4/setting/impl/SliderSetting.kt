@@ -31,6 +31,8 @@ class SliderSetting(name: String, value: Double, val minimum: Double, val maximu
         return bd.toDouble()
     }
 
+    override fun get() = round2(value, 2)
+
     override fun set(newValue: Double) {
         var newValue = clampDouble(newValue, minimum, maximum)
         newValue = Math.round(newValue * (1.0 / intervals)).toDouble() / (1.0 / intervals)

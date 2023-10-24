@@ -48,8 +48,7 @@ class AutoPlace: Module("AutoPlace", ModuleCategory.world) {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun drawBlockHightLightEvent(drawBlockHighlightEvent: DrawBlockHighlightEvent) {
-        if (!gd.lIIlIlllIIIllIllIIlIIIIIIIIIIlIlIlIIlIlIlllIIlIIllIIIIIlIlIllIIIIIlIlIIlIlllIIIIlIIlIIIIllIlIIIlIlIllllllIIllIIIIlIIllIlIllIIllIIlllIlIlIlIIllIIlllIlIIIlllIlllIllIIIIllIIllIIIlIlIlIlllllIlIllIlIIIIIll() ||
-                AutoPlace.b.field_71462_r != null || AutoPlace.b.field_71439_g.field_71075_bZ.field_75100_b) {
+        if (!gd.aaa() || AutoPlace.b.field_71462_r != null || AutoPlace.b.field_71439_g.field_71075_bZ.field_75100_b) {
             return
         }
         val itemStack = mc.thePlayer.heldItem
@@ -65,11 +64,11 @@ class AutoPlace: Module("AutoPlace", ModuleCategory.world) {
         if (pitchCheck.getValue() && mc.thePlayer.rotationPitch < 70.0f) {
             return
         }
-        MovingObjectPosition movingObjectPosition = mc.objectMouseOver
-        if (movingObjectPosition == null || movingObjectPosition.typeOfHit !=
-                MovingObjectPosition.MovingObjectType.BLOCK || movingObjectPosition.sideHit == EnumFacing.UP || movingObjectPosition.sideHit == EnumFacing.DOWN) {
+        val movingObjectPosition = mc.objectMouseOver
+        if (movingObjectPosition == null || movingObjectPosition.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK || movingObjectPosition.sideHit == EnumFacing.UP || movingObjectPosition.sideHit == EnumFacing.DOWN) {
             return
         }
+
         if (this.movingObjectPosition != null && (double)this.c < frameDelay.getValue()) {
             ++this.c
             return
