@@ -18,7 +18,7 @@ class DoubleSliderSetting(
     override val settingType = "doubleslider"
 
     private val minDefaultValue = minValue
-    private val maxDefaultValue = maxValues
+    private val maxDefaultValue = maxValue
 
     override fun resetToDefaults() {
         maxValue = maxDefaultValue

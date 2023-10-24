@@ -4,7 +4,7 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 
 abstract class Setting<T> (val name: String, protected var value: T) {
-    protected val settingType = ""
+    open val settingType = ""
     protected val defaultValue = value
 
     override fun get() = value

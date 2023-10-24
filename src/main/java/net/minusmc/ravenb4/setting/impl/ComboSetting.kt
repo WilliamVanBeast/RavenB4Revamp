@@ -1,5 +1,7 @@
 package net.minusmc.ravenb4.setting.impl
 
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import net.minusmc.ravenb4.setting.Setting
 
 class ComboSetting(name: String, val modes: Array<String>, value: String): Setting<String>(name, value) {
@@ -23,6 +25,6 @@ class ComboSetting(name: String, val modes: Array<String>, value: String): Setti
 
     fun nextMode() {
         val currentIdx = modes.indexOf(value)
-        if (currentIdx != -1) value = modes[(currentIdx + 1) % modes.length]
+        if (currentIdx != -1) value = modes[(currentIdx + 1) % modes.size]
     }
 }
