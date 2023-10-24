@@ -9,7 +9,7 @@ import net.minusmc.ravenb4.setting.impl.TickSetting
 import org.lwjgl.input.Keyboard
 
 
-open class Module(name: String, category: ModuleCategory, description: String = "") {
+open class Module(val name: String, val category: ModuleCategory, val description: String = "") {
     protected val settings = mutableListOf<Setting<*>>()
     private var enabled = false
     protected val defaultEnabled = enabled
@@ -64,14 +64,12 @@ open class Module(name: String, category: ModuleCategory, description: String = 
     fun canBeEnabled(): Boolean = true
 
     fun enable() {
-        val oldState = enabled
         enabled = true
         onEnable()
         MinecraftForge.EVENT_BUS.register(this)
     }
 
     fun disable() {
-        val oldState = enabled
         enabled = false
         onDisable()
         MinecraftForge.EVENT_BUS.unregister(this)
@@ -142,8 +140,4 @@ open class Module(name: String, category: ModuleCategory, description: String = 
     }
 
 
-}
-
-enum class ModuleCategory {
-    combat, movement, player, world, render, minigames, other, client, hotkey
 }
