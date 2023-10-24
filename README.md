@@ -53,4 +53,4 @@ Feel free to explore, modify, and share! But make sure to credit us; I don't kno
 
 ---
 
-Thank you, and here's to hoping you never get scammed $150 for a client again. Happy gaming!
+# Thank you, and here's to hoping you never get scammed $150 for a client again. Happy gaming!
