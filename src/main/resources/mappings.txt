@@ -1,0 +1,8 @@
+# value
+ad.class -> Setting
+fe.class -> SliderSetting
+et.class -> BoolValue
+
+
+# Module
+ac.class -> AutoPlace
