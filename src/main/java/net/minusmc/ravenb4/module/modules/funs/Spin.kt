@@ -6,6 +6,8 @@ import net.minusmc.ravenb4.setting.impl.SliderSetting
 
 class Spin: Module("Spin", ModuleCategory.funs){
 
+    //Helicopter
+
     private val yawSetting = SliderSetting("Rotation yaw", 360.0, 30.0, 360.0, 1.0);
     private val speedSetting = SliderSetting("Speed", 25.0, 1.0, 80.0, 1.0);
 

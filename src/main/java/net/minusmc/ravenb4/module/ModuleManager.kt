@@ -2,6 +2,7 @@ package net.minusmc.ravenb4.module
 
 import net.minecraft.client.gui.FontRenderer
 import net.minusmc.ravenb4.module.modules.funs.*
+import net.minusmc.ravenb4.module.modules.others.FakeChat
 import net.minusmc.ravenb4.module.modules.world.*
 
 object ModuleManager {
@@ -10,6 +11,9 @@ object ModuleManager {
     init {
         //World
         modules.add(BreakProgress());
+
+        //Other
+        modules.add(FakeChat());
 
         //Fun
         modules.add(Spin());
