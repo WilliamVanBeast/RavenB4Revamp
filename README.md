@@ -1,3 +1,4 @@
+<img width="100" height="100" align="left" style="float: left; margin: 0 10px 0 0;" alt="ravenb4" src="src/main/resources/minecraft/ravenb4/raven_logo.png">
 # Raven B4 Revamped
 
 ![Minecraft](https://img.shields.io/badge/MC-1.8.9-brightgreen.svg)
