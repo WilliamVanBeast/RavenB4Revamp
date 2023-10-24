@@ -1,14 +1,18 @@
 package net.minusmc.ravenb4.module
 
 import net.minecraft.client.gui.FontRenderer
+import net.minusmc.ravenb4.module.modules.combat.*
 import net.minusmc.ravenb4.module.modules.funs.*
-import net.minusmc.ravenb4.module.modules.others.FakeChat
+import net.minusmc.ravenb4.module.modules.others.*
 import net.minusmc.ravenb4.module.modules.world.*
 
 object ModuleManager {
     val modules = mutableListOf<Module>()
 
     init {
+        //Combat
+        modules.add(AntiKnockback());
+
         //World
         modules.add(BreakProgress());
 
@@ -25,7 +29,7 @@ object ModuleManager {
 
     fun getModulesInCategory(category: ModuleCategory) = modules.filter {it.category == category}
 
-    fun getLongestActiveModule(fontRenderer: FontRenderer) = modules.filter { it.isEnabled() }.maxByOrNull { fontRenderer.getStringWidth(it.name) }
+    fun getLongestActiveModule(fontRenderer: FontRenderer) = modules.filter { it.enabled }.maxByOrNull { fontRenderer.getStringWidth(it.name) }
 
-    fun getBoxHeight(fontRenderer: FontRenderer, margin: Int) = modules.filter { it.isEnabled() }.sumOf { fontRenderer.FONT_HEIGHT + margin }
+    fun getBoxHeight(fontRenderer: FontRenderer, margin: Int) = modules.filter { it.enabled }.sumOf { fontRenderer.FONT_HEIGHT + margin }
 }
