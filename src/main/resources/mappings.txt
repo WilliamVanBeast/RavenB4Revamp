@@ -1,10 +1,42 @@
-# value
+a.class -> ?
+aa.class -> ?
+ab.class -> TargetHUD
+ac.class -> AutoPlace
 ad.class -> Setting
+ae.class -> Teleport
+af.class -> Duel Stats
+ag.class -> Timer
+ah.class -> ?
+ai.class -> ?
+aj.class -> Bedwar Helper
+am.class -> ?
+an.class -> ?
+ao.class -> Auth?
+ap.class -> Scaffold2
+aq.class -> Quakecraft
+as.class -> BreakProgress
+at.class -> AutoClicker
+au.class -> Command Line
+av.class -> Bhop
+aw.class -> TPAura
+ax.class -> Slyport
+ay.class -> AntiBot
+az.class -> ?
+b.class -> Bridge Info
+ba.class -> Tracers
+bb.class -> ?
+bc.class -> Main class
+bd.class -> ?
+be.class ->
+bf.class -> AntiShuffle
+bg.class -> Fake Chat
+bh.class -> ?
+bi.class -> ?
+bj.class -> ?
+bk.class -> Name Hider
+bq.class -> FastPlace
+bs.class -> AntiKnockback
 fe.class -> SliderSetting
 et.class -> BoolValue
-
-
-# Module
 ge.class -> Module
 
-ac.class -> AutoPlace
