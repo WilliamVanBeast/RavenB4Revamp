@@ -6,8 +6,33 @@ import kotlin.math.atan2
 
 object RotationUtils: MinecraftInstance {
 
-	fun getRotationToEntity(entity: Entity) {
+	fun aim(entity: Entity, ps: Float, pc: Boolean) {
 		entity ?: return
+
+		val t = getRotationToEntity(entity)
+		t ?: return
+
+		val pitch = t.pitch + 4f + ps
+		if (pc) mc.netHandler.addToSendQueue(new C05PacketPlayerLook(y, p, mc.thePlayer.onGround));
+
+         if (en != null) {
+            float[] t = getTargetRotations(en);
+            if (t != null) {
+               float y = t[0];
+               float p = t[1] + 4.0F + ps;
+               if (pc) {
+                  
+               } else {
+                  mc.thePlayer.rotationYaw = y;
+                  mc.thePlayer.rotationPitch = p;
+               }
+            }
+
+         }
+      }
+
+	fun getRotationToEntity(entity: Entity): Rotation? {
+		entity ?: return null
 
 		val x = entity.posX - mc.thePlayer.posX
 		val z = entity.posZ - mc.thePlayer.posZ
