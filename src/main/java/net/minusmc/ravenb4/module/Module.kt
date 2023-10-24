@@ -8,7 +8,6 @@ import net.minusmc.ravenb4.setting.Setting
 import net.minusmc.ravenb4.setting.impl.TickSetting
 import org.lwjgl.input.Keyboard
 
-
 open class Module(val name: String, val category: ModuleCategory, val description: String = "") {
     protected val settings = mutableListOf<Setting<*>>()
     private var enabled = false
@@ -19,6 +18,10 @@ open class Module(val name: String, val category: ModuleCategory, val descriptio
 
     protected val mc = Minecraft.getMinecraft()
     private var isToggled = false
+
+    fun addSetting(setting: Setting<*>) {
+        settings.add(setting);
+    }
 
     fun getConfigAsJson(): JsonObject {
         val settings = JsonObject()

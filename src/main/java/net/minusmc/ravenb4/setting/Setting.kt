@@ -3,9 +3,6 @@ package net.minusmc.ravenb4.setting
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 
-
-
-
 abstract class Setting<T> (val name: String, protected var value: T) {
     protected val defaultValue = value
 
