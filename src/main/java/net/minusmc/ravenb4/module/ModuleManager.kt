@@ -3,8 +3,9 @@ package net.minusmc.ravenb4.module
 import net.minecraft.client.gui.FontRenderer
 import net.minusmc.ravenb4.module.modules.combat.*
 import net.minusmc.ravenb4.module.modules.funs.*
-import net.minusmc.ravenb4.module.modules.movement.SlyPort
+import net.minusmc.ravenb4.module.modules.movement.*
 import net.minusmc.ravenb4.module.modules.others.*
+import net.minusmc.ravenb4.module.modules.render.*
 import net.minusmc.ravenb4.module.modules.world.*
 
 object ModuleManager {
@@ -20,6 +21,9 @@ object ModuleManager {
         //World
         modules.add(BreakProgress());
         modules.add(Scaffold2());
+
+        //Render
+        modules.add(NameTags());
 
         //Other
         modules.add(FakeChat());
