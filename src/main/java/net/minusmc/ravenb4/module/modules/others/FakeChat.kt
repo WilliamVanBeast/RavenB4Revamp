@@ -3,16 +3,15 @@ package net.minusmc.ravenb4.module.modules.others;
 import net.minecraft.util.ChatComponentText
 import net.minusmc.ravenb4.module.Module
 import net.minusmc.ravenb4.module.ModuleCategory
+import net.minusmc.ravenb4.setting.impl.DescriptionSetting
 
 
 class FakeChat: Module("FakeChat", ModuleCategory.other){
 
     private val message: String = "&eThis is a fake chat message.";
-    private val command: String = "fakechat"
-    private val c4: String = "&cInvalid message."
 
     init {
-        //Eh need to add note setting.
+        this.addSetting(DescriptionSetting("Desc", "Command: fakechat [msg]"))
     }
 
     override fun onEnable() {

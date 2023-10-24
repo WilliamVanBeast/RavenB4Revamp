@@ -40,6 +40,7 @@ class AntiKnockback: Module("AntiKnockback", ModuleCategory.world){
     fun handleVelocityPacket(velocity: S12PacketEntityVelocity) {
         if(groundCheck.get() && !mc.thePlayer.onGround) return
 
+        //Since the decompiler failed to do this, I'm just gonna recode it.
         if(damageBoost.get()) {
             //velocity = S12PacketEntityVelocity(velocity.getEntityID(), (velocity.motionX * boostMutiplier.get()),
                 //(velocity.motionY * boostMutiplier.get()), (velocity.motionZ * boostMutiplier.get()))
