@@ -1,13 +1,13 @@
 package net.minusmc.ravenb4.module.modules.movement
 
 import net.minecraft.entity.Entity
-import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minusmc.ravenb4.module.Module
 import net.minusmc.ravenb4.module.ModuleCategory
 import net.minusmc.ravenb4.setting.impl.DescriptionSetting
 import net.minusmc.ravenb4.setting.impl.SliderSetting
 import net.minusmc.ravenb4.setting.impl.TickSetting
+
 
 class SlyPort : Module("SlyPort", ModuleCategory.movement, "tp behind enemies") {
     private val s = false
@@ -27,10 +27,8 @@ class SlyPort : Module("SlyPort", ModuleCategory.movement, "tp behind enemies") 
     }
 
     override fun onEnable() {
-        val en = ge()
-        if (en != null) {
-            tp(en)
-        }
+        val en = getEntity()
+        if (en != null) tp(en);
         disable()
     }
 
@@ -47,8 +45,11 @@ class SlyPort : Module("SlyPort", ModuleCategory.movement, "tp behind enemies") 
         }
     }
 
-    private fun ge(): Entity? {
-        //Later
-        return null;
+    private fun getEntity(): Entity? {
+        return mc.theWorld.loadedEntityList.stream().filter { entity: Entity -> shouldBePlayer(entity) && !entity.isDead && entity !== mc.thePlayer }.sorted(Comparator.comparingDouble { entity: Entity -> entity.getDistanceToEntity(mc.thePlayer).toDouble() }).toArray()[0] as Entity?;
+    }
+
+    private fun shouldBePlayer(entity: Entity): Boolean {
+        return entity is EntityPlayer || !playerOnly.get();
     }
 }
