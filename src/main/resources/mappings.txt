@@ -1,42 +1,46 @@
-a.class -> ?
-aa.class -> ?
-ab.class -> TargetHUD
-ac.class -> AutoPlace
-ad.class -> Setting
-ae.class -> Teleport
-af.class -> Duel Stats
-ag.class -> Timer
-ah.class -> ?
-ai.class -> ?
-aj.class -> Bedwar Helper
-am.class -> ?
-an.class -> ?
-ao.class -> Auth?
-ap.class -> Scaffold2
-aq.class -> Quakecraft
-as.class -> BreakProgress
-at.class -> AutoClicker
-au.class -> Command Line
-av.class -> Bhop
-aw.class -> TPAura
-ax.class -> Slyport
-ay.class -> AntiBot
-az.class -> ?
-b.class -> Bridge Info
-ba.class -> Tracers
-bb.class -> ?
-bc.class -> Main class
-bd.class -> ?
-be.class ->
-bf.class -> AntiShuffle
-bg.class -> Fake Chat
-bh.class -> ?
-bi.class -> ?
-bj.class -> ?
-bk.class -> Name Hider
-bq.class -> FastPlace
-bs.class -> AntiKnockback
-fe.class -> SliderSetting
-et.class -> BoolValue
-ge.class -> Module
+a -> ?
+aa -> ?
+ab -> TargetHUD
+ac -> AutoPlace
+ad -> Setting
+ae -> Teleport
+af -> Duel Stats
+ag -> Timer
+ah -> ?
+ai -> ?
+aj -> Bedwar Helper
+am -> ?
+an -> ?
+ao -> Auth?
+ap -> Scaffold2
+aq -> Quakecraft
+as -> BreakProgress
+at -> AutoClicker
+au -> Command Line
+av -> Bhop
+aw -> TPAura
+ax -> Slyport
+ay -> AntiBot
+az -> ?
+b -> Bridge Info
+ba -> Tracers
+bb -> ?
+bc -> Main class
+bd -> ?
+be ->
+bf -> AntiShuffle
+bg -> Fake Chat
+bh -> ?
+bi -> ?
+bj -> ?
+bk -> Name Hider
+bq -> FastPlace
+bs -> AntiKnockback
+bu -> HypixelUtils
+bx -> Reach
+by -> ChestESP
+bz -> Speed
+fe -> SliderSetting
+et -> BoolValue
+ge -> Module
 
