@@ -5,7 +5,7 @@ import com.google.gson.JsonObject
 import net.minusmc.ravenb4.setting.Setting
 
 class TickSetting(name: String, value: Boolean): Setting<Boolean>(name, value) {
-    private val settingType = "tick"
+    override val settingType = "tick"
 
     override fun getConfigAsJson(): JsonElement {
         val data = JsonObject()
@@ -16,7 +16,7 @@ class TickSetting(name: String, value: Boolean): Setting<Boolean>(name, value) {
 
     override fun applyConfigFromJson(data: JsonObject) {
         if (!data.get("type").asString.equals(settingType, true)) return;
-        set(data.get("type").asBoolean)
+        set(data.get("value").asBoolean)
     }
 
     fun toggle() {value = !value}

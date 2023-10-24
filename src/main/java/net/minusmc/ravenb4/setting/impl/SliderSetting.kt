@@ -10,7 +10,7 @@ import kotlin.math.min
 
 
 class SliderSetting(name: String, value: Double, val minimum: Double, val maximum: Double, val intervals: Double): Setting<Double>(name, value) {
-    private val settingType = "slider"
+    override val settingType = "slider"
 
     override fun getConfigAsJson(): JsonElement {
         val data = JsonObject()

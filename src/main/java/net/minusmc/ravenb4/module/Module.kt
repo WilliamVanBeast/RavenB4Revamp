@@ -10,7 +10,7 @@ import org.lwjgl.input.Keyboard
 
 open class Module(val name: String, val category: ModuleCategory, val description: String = "") {
     protected val settings = mutableListOf<Setting<*>>()
-    private var enabled = false
+    var enabled = false
     protected val defaultEnabled = enabled
 
     private var keycode = 0
@@ -48,8 +48,7 @@ open class Module(val name: String, val category: ModuleCategory, val descriptio
                     )
                 }
             }
-        } catch (ignored: NullPointerException) {
-        }
+        } catch (ignored: NullPointerException) {}
     }
 
 
@@ -93,13 +92,9 @@ open class Module(val name: String, val category: ModuleCategory, val descriptio
         return null
     }
 
-    fun registerSetting(Setting: Setting<*>) {
-        settings.add(Setting)
-    }
+    fun registerSettings(vararg settings: Setting) = for (setting in settings) settings.add(setting)
 
-    fun isEnabled(): Boolean {
-        return enabled
-    }
+    fun registerSetting(setting: Setting<*>) = settings.add(setting)
 
     open fun onEnable() {}
 
