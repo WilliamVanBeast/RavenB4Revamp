@@ -1,12 +1,13 @@
 package net.minusmc.ravenb4.module
 
 import net.minecraft.client.gui.FontRenderer
+import net.minusmc.ravenb4.module.modules.funs.Spin
 
 object ModuleManager {
     val modules = mutableListOf<Module>()
 
     init {
-        // maybe use resolverpackage
+        modules.add(Spin());
         modules.sortedBy { it.name }
     }
 
