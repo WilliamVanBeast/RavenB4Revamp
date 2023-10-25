@@ -47,6 +47,9 @@ open class Module(val name: String, val category: ModuleCategory): MinecraftInst
         } catch (ignored: NullPointerException) {}
     }
 
+    fun setKeyCode(key: Int) {
+        keycode = key;
+    }
 
     fun keybind() {
         if (keycode != 0 && canBeEnabled()) {

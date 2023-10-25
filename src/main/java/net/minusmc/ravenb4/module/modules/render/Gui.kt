@@ -9,6 +9,10 @@ import org.lwjgl.input.Keyboard
 
 class Gui: Module("Gui", ModuleCategory.funs){
 
+    init {
+        setKeyCode(Keyboard.KEY_RSHIFT)
+    }
+
     override fun onEnable() {
         this.setToggled(false)
         mc.displayGuiScreen(RavenB4.clickGui)
