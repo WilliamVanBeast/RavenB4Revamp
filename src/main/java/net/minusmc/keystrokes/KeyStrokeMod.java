@@ -30,7 +30,7 @@ public class KeyStrokeMod {
         MinecraftForge.EVENT_BUS.register(new MouseManager());
         MinecraftForge.EVENT_BUS.register(this);
         //ClientConfig.applyKeyStrokeSettingsFromConfigFile();
-        RavenB4.INSTANCE.init();
+        RavenB4.init();
     }
 
     public static KeyStroke getKeyStroke() {
