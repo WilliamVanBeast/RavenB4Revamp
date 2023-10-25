@@ -14,7 +14,7 @@ open class Module(val name: String, val category: ModuleCategory): MinecraftInst
     var enabled = false
     protected val defaultEnabled = enabled
 
-    protected var keycode = 0
+    private var keycode = 0
     protected val defualtKeyCode = keycode
 
     private var isToggled = false
