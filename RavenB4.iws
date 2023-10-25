@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ee036f5-5787-40dd-b788-3c4019c1c4a4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/minusmc/keystroke/KeyStrokeMod.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/minusmc/ravenb4/module/modules/others/Settings.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RavenB4.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/RavenB4.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RavenB4.iws" beforeDir="false" afterPath="$PROJECT_DIR$/RavenB4.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/minusmc/ravenb4/RavenB4.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/minusmc/ravenb4/RavenB4.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/minusmc/ravenb4/module/ModuleManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/minusmc/ravenb4/module/ModuleManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/minusmc/ravenb4/utils/RotationUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/minusmc/ravenb4/utils/RotationUtils.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappings.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,10 +113,18 @@
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main"
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/Computer/Documents/RavenB4Revamp/src/main/java/net/minusmc/keystrokes"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Computer\Documents\RavenB4Revamp\src\main\java\net\minusmc\keystrokes" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Computer\Documents\RavenB4Revamp\src\main\resources" />
+      <recent name="C:\Users\Computer\Documents\RavenB4Revamp\src\main\resources\assets" />
+    </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="net.minusmc.ravenb4.setting.impl" />
     </key>
