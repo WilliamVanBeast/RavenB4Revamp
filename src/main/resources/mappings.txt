@@ -45,7 +45,7 @@ ca -> ?
 cb -> Shaders
 cc -> BlockPosUtils?
 cd -> ?
-ce -> Decompile error
+ce -> NoSlow
 cg -> Murder Mystery
 ch -> HUD
 ci -> ?
@@ -61,8 +61,9 @@ cs -> ?
 cu -> ?
 cw -> Anticheat
 cx -> ?
-cy -> Decompile error
+cy -> BedAura
 cz -> RenderUtils
+fb -> ModuleManager
 fe -> SliderSetting
 et -> BoolValue
 ge -> Module
