@@ -16,6 +16,7 @@ class ModuleManager {
     init {
         //Combat
         addModule(AntiKnockback())
+        addModule(Reach())
 
         //Movement
         addModule(SlyPort())

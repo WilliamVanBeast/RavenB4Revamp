@@ -6,10 +6,10 @@ import net.minusmc.ravenb4.module.ModuleManager
 
 object RavenB4 {
 
-    val moduleManager = ModuleManager()
+    lateinit var moduleManager: ModuleManager;
 
     @JvmStatic
     fun init() {
-
+        moduleManager = ModuleManager();
     }
 }
