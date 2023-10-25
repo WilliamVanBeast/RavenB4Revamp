@@ -3,6 +3,7 @@ package net.minusmc.ravenb4.utils
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.C03PacketPlayer
+import net.minecraft.util.BlockPos
 import net.minecraft.util.MathHelper
 import net.minusmc.ravenb4.RavenB4
 import net.minusmc.ravenb4.module.modules.others.Settings
@@ -26,6 +27,10 @@ object RotationUtils: MinecraftInstance() {
 		entity ?: return
 		val rot = getPrevRotation(entity, mc.thePlayer.prevRotationYaw, mc.thePlayer.prevRotationPitch)
 		setRotation(rot)
+	}
+
+	fun getPrevRotation(entity: Entity?, yaw: Float, pitch: Float): Rotation {
+		return Rotation(yaw, pitch);
 	}
 
 	fun aim(entity: Entity, pitchOffset: Float, isSilent: Boolean) {
@@ -57,12 +62,12 @@ object RotationUtils: MinecraftInstance() {
 
 		return Rotation(
 			mc.thePlayer.rotationYaw + MathHelper.wrapAngleTo180_float(yaw - mc.thePlayer.rotationYaw),
-			clamp_float(mc.thePlayer.rotationPitch + MathHelper.wrapAngleTo180_float(pitch - mc.thePlayer.rotationPitch))
+			mc.thePlayer.rotationPitch + MathHelper.wrapAngleTo180_float(pitch - mc.thePlayer.rotationPitch)
 		)
 	}
 
 	// fun g
-	fun getRotationToEntity(entity: Entity?, prevYaw: Float, prewPitch: Float): Rotation? {
+	fun getRotationToEntity(entity: Entity?, prevYaw: Float, prevPitch: Float): Rotation? {
 		val rot = getRotationToEntity(entity) ?: return null
 		return getRotation(rot.yaw, rot.pitch, prevYaw, prevPitch)
 	}
@@ -74,7 +79,7 @@ object RotationUtils: MinecraftInstance() {
 		var diffYaw = prevYaw - yaw
 		var diffAbsYaw = abs(diffYaw)
 
-		val settingModule = RavenB4.moduleManager[Settings::class.java]!!
+		val settingModule = RavenB4.INSTANCE.moduleManager[Settings::class.java]!!
 
 		if (settingModule.limitYawAcceleration.get()) {
 			if (diffAbsYaw >= 20f)
@@ -93,12 +98,12 @@ object RotationUtils: MinecraftInstance() {
 		}
 
 		if (diffAbsYaw >= 1f) {
-			val yawFactor = settingModule.randomYawValue.get().toInt()
+			var yawFactor = settingModule.randomYawValue.get().toInt()
 			if (yawFactor != 0) {
 				yawFactor = yawFactor * 100 + RandomUtils.nextInt(-30, 30)
 				yaw = (yaw.toDouble() - RandomUtils.nextInt(-yawFactor, yawFactor).toDouble() / 100.0).toFloat()
 			}
-		} else if (diffAbsYaw.toDouble <= 0.04) {
+		} else if (diffAbsYaw.toDouble() <= 0.04) {
 			yaw = (yaw.toDouble() + (if (diffAbsYaw > 0f) 0.01 else -0.01)).toFloat()
 		}
 
@@ -107,7 +112,7 @@ object RotationUtils: MinecraftInstance() {
 
 	// fun k
 	fun getRotationToBlock(blockPos: BlockPos?): Rotation? {
-		blockPos ?: return
+		blockPos ?: return Rotation(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch)
 		val x = blockPos.x + 0.45 - mc.thePlayer.posX
 		val y = blockPos.y + 0.45 - mc.thePlayer.posY - mc.thePlayer.getEyeHeight()
 		val z = blockPos.z + 0.45 - mc.thePlayer.posZ
@@ -118,7 +123,7 @@ object RotationUtils: MinecraftInstance() {
 
 		return Rotation(
 			mc.thePlayer.rotationYaw + MathHelper.wrapAngleTo180_float(yaw - mc.thePlayer.rotationYaw),
-			clamp_float(mc.thePlayer.rotationPitch + MathHelper.wrapAngleTo180_float(pitch - mc.thePlayer.rotationPitch))
+			mc.thePlayer.rotationPitch + MathHelper.wrapAngleTo180_float(pitch - mc.thePlayer.rotationPitch)
 		)
 	}
 

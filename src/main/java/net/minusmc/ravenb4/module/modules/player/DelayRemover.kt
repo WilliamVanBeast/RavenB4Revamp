@@ -10,7 +10,7 @@ import net.minusmc.ravenb4.setting.impl.TickSetting
 import java.lang.reflect.Field
 
 
-class DelayRemover: Module("DelayRemover", ModuleCategory.player){
+class DelayRemover: Module("DelayRemover", ModuleCategory.player) {
     private val hitreg = TickSetting("1.7 hitreg", true)
     private val jumpTicks = TickSetting("Remove jump ticks", false)
 
