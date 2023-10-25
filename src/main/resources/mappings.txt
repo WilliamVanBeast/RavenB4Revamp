@@ -25,7 +25,7 @@ az -> ?
 b -> Bridge Info
 ba -> Tracers
 bb -> ?
-bc -> KeyStrokMod
+bc -> KeyStrokeMod
 bd -> RotationUtils
 be ->
 bf -> AntiShuffle
@@ -63,6 +63,12 @@ cw -> Anticheat
 cx -> ?
 cy -> BedAura
 cz -> RenderUtils
+da -> Public fields?
+db -> PlayerESP
+dc -> ?
+dd -> View packets
+dg -> AutoWho
+dh -> InvManager
 fb -> ModuleManager
 fe -> SliderSetting
 et -> BoolValue
