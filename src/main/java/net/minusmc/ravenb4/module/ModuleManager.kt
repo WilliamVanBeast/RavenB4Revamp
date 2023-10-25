@@ -9,40 +9,46 @@ import net.minusmc.ravenb4.module.modules.player.DelayRemover
 import net.minusmc.ravenb4.module.modules.render.*
 import net.minusmc.ravenb4.module.modules.world.*
 
-object ModuleManager {
+class ModuleManager {
     val modules = mutableListOf<Module>()
+    val moduleClassMap = hashMapOf<Class<*>, Module>()
 
     init {
         //Combat
-        modules.add(AntiKnockback());
+        addModule(AntiKnockback())
 
         //Movement
-        modules.add(SlyPort());
+        addModule(SlyPort())
 
         //World
-        modules.add(BreakProgress());
-        modules.add(Scaffold2());
+        addModule(BreakProgress())
+        addModule(Scaffold2())
 
         //Player
-        modules.add(DelayRemover());
+        addModule(DelayRemover())
 
         //Render
-        modules.add(NameTags());
+        addModule(NameTags())
 
         //Other
-        modules.add(FakeChat());
+        addModule(FakeChat())
 
         //Fun
-        modules.add(Spin());
+        addModule(Spin())
 
         modules.sortedBy { it.name }
     }
 
-    fun addModule(module: Module) = modules.add(module)
+    fun addModule(module: Module) {
+        modules.add(module)
+        moduleClassMap[module.javaClass] = module
+    }
 
     fun getModulesInCategory(category: ModuleCategory) = modules.filter {it.category == category}
 
     fun getLongestActiveModule(fontRenderer: FontRenderer) = modules.filter { it.enabled }.maxByOrNull { fontRenderer.getStringWidth(it.name) }
 
     fun getBoxHeight(fontRenderer: FontRenderer, margin: Int) = modules.filter { it.enabled }.sumOf { fontRenderer.FONT_HEIGHT + margin }
+
+    operator fun <T: Module> get(clazz: Class<T>): T? = moduleClassMap[clazz] as T?
 }
