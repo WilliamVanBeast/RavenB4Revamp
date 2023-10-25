@@ -69,8 +69,60 @@ dc -> ?
 dd -> View packets
 dg -> AutoWho
 dh -> InvManager
-fb -> ModuleManager
-fe -> SliderSetting
+di -> Enum??
+dj -> KeyStrokeCommand
+dk -> Timer
+dl -> Check VPN
+dn -> Sumo Fences
+do -> ?
+dp -> TransformerLoader
+dr -> ColorUtils
+ds -> Velocity
+dt -> Sprint
+du -> Spin
+dv -> ClassUtils???
+dw -> Wtap
+dx -> Xray
+dy -> ?
+ea -> ?
+eb -> ?
+ec -> ?
+ed -> Extra bobbing
+ee -> ?
+ef -> ?
+eg -> BedESP
+eh -> Flametrail
+ei -> AntiAFK
+ej -> ?
+el -> ?
+em -> ?
+en -> Safewalk
+eo -> ?
+ep -> ?
+eq -> KeepSprint
+er -> ?
+es -> KeybindListener?
 et -> BoolValue
+eu -> LongJump
+ev -> Freecam
+ew -> ?
+ex -> Radar
+ey -> RavenB4 Element?
+ez -> ?
+f -> Test Module
+fa -> InvMove
+fb -> ModuleManager
+fc -> ?
+fd -> ?
+fe -> SliderSetting
+ff -> Indicators
+fg -> ?
+fh -> ?
+fi -> Manager
+fj -> Scaffold
+fk -> ?
+fl -> ?
+fm -> AutoSwap
+fn -> EntityCommandUtils?
 ge -> Module
 hs -> Settings
