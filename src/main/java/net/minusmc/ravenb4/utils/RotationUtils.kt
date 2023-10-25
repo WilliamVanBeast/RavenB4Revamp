@@ -103,7 +103,7 @@ object RotationUtils: MinecraftInstance() {
 		var diffYaw = prevYaw - yaw
 		var diffAbsYaw = abs(diffYaw)
 
-		val settingModule = RavenB4.INSTANCE.moduleManager[Settings::class.java]!!
+		val settingModule = RavenB4.moduleManager[Settings::class.java]!!
 
 		if (settingModule.limitYawAcceleration.get()) {
 			if (diffAbsYaw >= 20f)
