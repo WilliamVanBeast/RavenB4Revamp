@@ -30,6 +30,7 @@ class ModuleManager {
 
         //Render
         addModule(NameTags())
+        addModule(Gui())
 
         //Other
         addModule(FakeChat())
