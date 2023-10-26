@@ -62,7 +62,7 @@ cu -> ?
 cw -> Anticheat
 cx -> ?
 cy -> BedAura
-cz -> RenderUtils
+cz -> RenderUtils?
 da -> Public fields?
 db -> PlayerESP
 dc -> ?
@@ -124,6 +124,33 @@ fk -> ?
 fl -> ?
 fm -> AutoSwap
 fn -> EntityCommandUtils?
-ge -> Module
+fo -> Fly
+fp -> ?
+fq -> ?
+fr -> ?
+fs -> ?
+ft -> Reduce
+fx -> NoFall
+fy -> ?
+fz -> ?
+g -> AimAssist
+ga -> ?
+gb -> ?
+gc -> Chams
+gd -> Utils
+ge -> ClickAssist
+gf -> ClickerListener?
+gg -> BurstClicker
+gh -> Comparator
+gi -> MovementUtils?
+gj -> ?
+gk -> Message?
+gs -> Module
+gv -> WorldEnum
+h -> PacketUtils
+ha -> MinecraftInstance
+hc -> CustomBlockPos
+hd -> ASMTransformerClass
+he -> TransformerGuiUtilRenderComponents
+hf -> RodAimbot
 hs -> Settings
-
