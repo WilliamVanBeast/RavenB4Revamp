@@ -6,6 +6,7 @@ import net.minusmc.ravenb4.module.modules.funs.*
 import net.minusmc.ravenb4.module.modules.movement.*
 import net.minusmc.ravenb4.module.modules.others.*
 import net.minusmc.ravenb4.module.modules.player.DelayRemover
+import net.minusmc.ravenb4.module.modules.player.VClip
 import net.minusmc.ravenb4.module.modules.render.*
 import net.minusmc.ravenb4.module.modules.world.*
 
@@ -27,6 +28,7 @@ class ModuleManager {
 
         //Player
         addModule(DelayRemover())
+        addModule(VClip())
 
         //Render
         addModule(NameTags())
