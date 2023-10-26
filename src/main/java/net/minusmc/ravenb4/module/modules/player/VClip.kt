@@ -22,14 +22,30 @@ class VClip : Module("VClip", ModuleCategory.player) {
         val tpDistance = distance.get()
         if (tpDistance != 0.0) {
             if (sendPackets.get()) {
-                mc.thePlayer.sendQueue.addToSendQueue(
-                    C04PacketPlayerPosition(
-                        mc.thePlayer.posX,
-                        mc.thePlayer.posY + tpDistance,
-                        mc.thePlayer.posZ,
-                        false
+                if(Math.round(tpDistance) > 10) {
+                    var distancePerEach = 10
+                    var blinkTimes = tpDistance / 10;
+
+                    for (i in 0..blinkTimes.toInt()) {
+                        mc.thePlayer.sendQueue.addToSendQueue(
+                            C04PacketPlayerPosition(
+                                mc.thePlayer.posX,
+                                mc.thePlayer.posY + distancePerEach,
+                                mc.thePlayer.posZ,
+                                false
+                            )
+                        )
+                    }
+                }else {
+                    mc.thePlayer.sendQueue.addToSendQueue(
+                        C04PacketPlayerPosition(
+                            mc.thePlayer.posX,
+                            mc.thePlayer.posY + tpDistance,
+                            mc.thePlayer.posZ,
+                            false
+                        )
                     )
-                )
+                }
             } else {
                 mc.thePlayer.setPosition(mc.thePlayer.posX, mc.thePlayer.posY + tpDistance, mc.thePlayer.posZ)
             }
