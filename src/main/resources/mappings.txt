@@ -1,5 +1,5 @@
-a -> ?
-aa -> ?
+a -> SumoTimerTask
+aa -> TransformerMinecraft 
 ab -> TargetHUD
 ac -> AutoPlace
 ad -> Setting
@@ -153,4 +153,36 @@ hc -> CustomBlockPos
 hd -> ASMTransformerClass
 he -> TransformerGuiUtilRenderComponents
 hf -> RodAimbot
-hs -> Settings
+hg -> ComboSetting
+hi -> HUDEditor
+hj -> PacketUtils?
+hk -> KillAura
+hl -> Enum?
+hm -> EntityUtils?
+hn -> Transformer?
+hu -> ?
+hp -> AutoTool
+hq -> Transformer
+hr -> ?
+hs -> Settings 
+ht -> ?
+hv -> Gui?
+hw -> Utils?
+hy -> AntiFireball
+hz -> Water Bucket
+i -> Boost
+j -> Utils?
+k -> init?
+m -> Hitbox
+n -> Fastmine
+o -> ?
+p -> Const?
+q -> Transformer?
+r -> ColorUtils?
+s -> NodeUtils?
+t -> ?
+u -> MobESP
+v -> Ping check?
+w -> VClip
+y -> Enum?
+z -> Enum?
