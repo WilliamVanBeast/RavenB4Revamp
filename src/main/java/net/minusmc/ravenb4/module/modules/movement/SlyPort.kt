@@ -10,7 +10,7 @@ import net.minusmc.ravenb4.setting.impl.TickSetting
 import net.minusmc.ravenb4.utils.RotationUtils
 
 class SlyPort : Module("SlyPort", ModuleCategory.movement) {
-    var desc = DescriptionSetting("Desc", "Teleport behind enemies.");
+    var desc = DescriptionSetting("Desc", "Teleport behind enemies.")
     var range = SliderSetting("Range", 6.0, 2.0, 15.0, 1.0)
     var playSound = TickSetting("Play sound", true)
     var aimSetting = TickSetting("Aim", true)
@@ -26,11 +26,11 @@ class SlyPort : Module("SlyPort", ModuleCategory.movement) {
 
     override fun onEnable() {
         val en = getEntity()
-        if (en != null) tp(en);
+        if (en != null) tp(en)
         disable()
     }
 
-    private fun tp (en: Entity) {
+    private fun tp(en: Entity) {
         if (playSound.get()) {
             mc.thePlayer.playSound("mob.endermen.portal", 1.0f, 1.0f)
         }
@@ -39,15 +39,15 @@ class SlyPort : Module("SlyPort", ModuleCategory.movement) {
         val z = en.posZ - vec.zCoord * 2.5
         mc.thePlayer.setPosition(x, mc.thePlayer.posY, z)
         if (aimSetting.get()) {
-            RotationUtils.aim(en, 0.0f, false);
+            PlayerUtils.aim(en, 0.0f, false)
         }
     }
 
     private fun getEntity(): Entity? {
-        return mc.theWorld.loadedEntityList.stream().filter { entity: Entity -> shouldBePlayer(entity) && !entity.isDead && entity !== mc.thePlayer }.sorted(Comparator.comparingDouble { entity: Entity -> entity.getDistanceToEntity(mc.thePlayer).toDouble() }).toArray()[0] as Entity?;
+        return mc.theWorld.loadedEntityList.stream().filter { entity: Entity -> shouldBePlayer(entity) && !entity.isDead && entity !== mc.thePlayer }.sorted(Comparator.comparingDouble { entity: Entity -> entity.getDistanceToEntity(mc.thePlayer).toDouble() }).toArray()[0] as Entity?
     }
 
     private fun shouldBePlayer(entity: Entity): Boolean {
-        return entity is EntityPlayer || !playerOnly.get();
+        return entity is EntityPlayer || !playerOnly.get()
     }
 }
