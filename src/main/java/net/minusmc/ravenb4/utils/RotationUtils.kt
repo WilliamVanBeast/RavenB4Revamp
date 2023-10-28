@@ -15,32 +15,18 @@ import kotlin.math.sqrt
 
 // bd.class
 object RotationUtils: MinecraftInstance() {
-
-	// fun a
 	fun rotateToEntity(entity: Entity?) {
 		entity ?: return
 		val rot = getRotationToEntity(entity)
 		setRotation(rot)
 	}
 
-	// fun c
 	fun prevRotateToEnitty(entity: Entity?) {
 		entity ?: return
 		val rot = getRotationToEntity(entity, mc.thePlayer.prevRotationYaw, mc.thePlayer.prevRotationPitch)
 		setRotation(rot)
 	}
 
-	fun aim(entity: Entity, pitchOffset: Float, isSilent: Boolean) {
-		val targetRotation = getRotationToEntity(entity) ?: return
-		val pitch = targetRotation.pitch + 4f + pitchOffset
-		if (isSilent) mc.netHandler.addToSendQueue(C03PacketPlayer.C05PacketPlayerLook(targetRotation.yaw, pitch, mc.thePlayer.onGround));
-		else {
-			mc.thePlayer.rotationYaw = targetRotation.yaw;
-			mc.thePlayer.rotationPitch = pitch;
-		}
-	}
-
-	// fun b
 	fun getRotationToEntity(entity: Entity?): Rotation? {
 		entity ?: return null
 
@@ -63,7 +49,6 @@ object RotationUtils: MinecraftInstance() {
 		)
 	}
 
-	// fun j
 	fun getRotationToEntity(entity: Entity?, length: Int): Rotation? {
 		entity ?: return null
 		if (length == 0) return getRotationToEntity(entity)
@@ -90,13 +75,11 @@ object RotationUtils: MinecraftInstance() {
 
 	}
 
-	// fun g
 	fun getRotationToEntity(entity: Entity?, prevYaw: Float, prevPitch: Float): Rotation? {
 		val rot = getRotationToEntity(entity) ?: return null
 		return getRotation(rot.yaw, rot.pitch, prevYaw, prevPitch)
 	}
 
-	// fun d
 	fun getRotation(yaw: Float, pitch: Float, prevYaw: Float, prevPitch: Float): Rotation? {
 		var yaw = yaw
 		var pitch = pitch
@@ -134,7 +117,6 @@ object RotationUtils: MinecraftInstance() {
 		return Rotation(yaw, MathHelper.clamp_float(pitch, -90f, 90f))
 	}
 
-	// fun k
 	fun getRotationToBlock(blockPos: BlockPos?): Rotation? {
 		blockPos ?: return null
 		val x = blockPos.x + 0.45 - mc.thePlayer.posX
@@ -151,31 +133,24 @@ object RotationUtils: MinecraftInstance() {
 		)
 	}
 
-	// fun e
 	fun getRotationToBlock(blockPos: BlockPos?, yaw: Float, pitch: Float): Rotation? {
 		val rot = getRotationToBlock(blockPos) ?: return null
 		return getRotation(rot.yaw, rot.pitch, yaw, pitch)
 	}
 
-	// fun l
 	fun setRotation(rotation: Rotation?) {
 		rotation ?: return
 		mc.thePlayer.rotationYaw = rotation.yaw
 		mc.thePlayer.rotationPitch = rotation.pitch
 	}
 
-	// fun i
 	fun distance(posX: Float, posZ: Float): Double {
 		val x = posX - mc.thePlayer.posX
 		val z = posZ - mc.thePlayer.posZ
 		return -atan2(x, z) * 57.295780181884766
 	}
 
-	// fun m
 	fun clamp_pitch(value: Float) = MathHelper.clamp_float(value, -90f, 90f)
-
-	// fun f
-	fun nextFactor() = RandomUtils.nextInt(5, 25).toDouble() / 100.0
 
 	// fun h -> diff?
 	// fun diff(entity: Entity?, check: Boolean) {
