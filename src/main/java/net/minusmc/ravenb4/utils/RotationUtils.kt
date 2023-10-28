@@ -152,6 +152,25 @@ object RotationUtils: MinecraftInstance() {
 
 	fun clamp_pitch(value: Float) = MathHelper.clamp_float(value, -90f, 90f)
 
+	fun correctRotations(): Float {
+		var yaw = mc.thePlayer.rotationYaw
+		if (mc.thePlayer.moveForward < 0.0F) {
+			yaw += 180.0F
+		}
+
+		val f = if (mc.thePlayer.moveForward < 0.0F) -0.5F
+				else if (mc.thePlayer.moveForward > 0.0F) 0.5F
+				else 1.0F
+
+		if (mc.thePlayer.moveStrafing > 0.0F)
+			yaw -= 90.0F * f
+		if (mc.thePlayer.moveStrafing < 0.0F)
+			yaw += 90.0F * f
+
+		yaw *= 0.017453292F
+		return yaw
+	}
+
 	// fun h -> diff?
 	// fun diff(entity: Entity?, check: Boolean) {
 	//	return abs()

@@ -7,7 +7,7 @@ import net.minusmc.ravenb4.module.ModuleCategory
 import net.minusmc.ravenb4.setting.impl.DescriptionSetting
 import net.minusmc.ravenb4.setting.impl.SliderSetting
 import net.minusmc.ravenb4.setting.impl.TickSetting
-import net.minusmc.ravenb4.utils.RotationUtils
+import net.minusmc.ravenb4.utils.PlayerUtils
 
 class SlyPort : Module("SlyPort", ModuleCategory.movement) {
     var desc = DescriptionSetting("Desc", "Teleport behind enemies.")

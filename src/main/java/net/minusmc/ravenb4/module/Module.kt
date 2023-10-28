@@ -104,7 +104,7 @@ open class Module(val name: String, val category: ModuleCategory): MinecraftInst
 
     fun update() {}
 
-    fun guiUpdate() {}
+    open fun guiUpdate() {}
 
     fun guiButtonToggled(b: TickSetting?) {}
 
