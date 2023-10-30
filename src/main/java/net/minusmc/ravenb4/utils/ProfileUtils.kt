@@ -11,7 +11,9 @@ object ProfileUtils {
 
 	fun getHypixelStats2(playerName: String, mode: DuelMode): Stats? {
 		val stat = Stats(playerName, listOf(0, 0, 0, 0))
-		val userAgent = listOf("User-Agent", "Mozilla/4.76 (Sk1er ModCore)")
+		val userAgent: List<String> = emptyList()
+		userAgent.add("User-Agent", "Mozilla/4.76 (Sk1er ModCore)")
+		
 		val text = URLUtils.getTextFromURL("https://api.sk1er.club/player/$playerName", listOf(userAgent), false)
 		if (text.length < 50) return null
 
@@ -20,7 +22,7 @@ object ProfileUtils {
 
 		try {
 			objectData = parseJson(text).getAsJsonObject("player")
-			stats = objectData.asJsonObject["stats"].getAsJsonObject("Duels")
+			stats = objectData.getAsJsonObject("stats").getAsJsonObject("Duels")
 		} catch (e: NullPointerException) {
 			return stat
 		}
@@ -53,7 +55,7 @@ object ProfileUtils {
 
 		try {
 			val objectData = parseJson(text).getAsJsonObject("player")
-			stats = objectData.asJsonObject["stats"].getAsJsonObject("Duels")
+			stats = objectData.getAsJsonObject("stats").getAsJsonObject("Duels")
 		} catch (e: NullPointerException) {
 			return listOf(-1, 0, 0)
 		}
