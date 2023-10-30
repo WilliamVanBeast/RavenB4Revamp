@@ -7,22 +7,17 @@ import net.minusmc.ravenb4.setting.impl.DescriptionSetting
 
 
 class FakeChat: Module("FakeChat", ModuleCategory.other){
-
     private val message: String = "&eThis is a fake chat message.";
 
     init {
-        this.addSetting(DescriptionSetting("Desc", "Command: fakechat [msg]"))
+        addSetting(DescriptionSetting("Desc", "Command: fakechat [msg]"))
     }
 
     override fun onEnable() {
         if (message.contains("\\n")) {
             val split: List<String> = message.split("\\\\n")
-            for (s in split) {
-                this.sendMessage(s)
-            }
-        } else {
-            this.sendMessage(message)
-        }
+            for (s in split) sendMessage(s)
+        } else sendMessage(message)
 
         disable()
     }

@@ -7,7 +7,7 @@ import net.minusmc.ravenb4.setting.impl.SliderSetting
 import org.lwjgl.input.Keyboard
 
 
-class Gui: Module("Gui", ModuleCategory.funs){
+class Gui: Module("Gui", ModuleCategory.render) {
 
     init {
         setKeyCode(Keyboard.KEY_RSHIFT)

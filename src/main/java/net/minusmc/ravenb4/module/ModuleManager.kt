@@ -5,10 +5,10 @@ import net.minusmc.ravenb4.module.modules.combat.*
 import net.minusmc.ravenb4.module.modules.funs.*
 import net.minusmc.ravenb4.module.modules.movement.*
 import net.minusmc.ravenb4.module.modules.others.*
-import net.minusmc.ravenb4.module.modules.player.DelayRemover
-import net.minusmc.ravenb4.module.modules.player.VClip
+import net.minusmc.ravenb4.module.modules.player.*
 import net.minusmc.ravenb4.module.modules.render.*
 import net.minusmc.ravenb4.module.modules.world.*
+import net.minusmc.ravenb4.module.modules.minigames.*
 
 class ModuleManager {
     val modules = mutableListOf<Module>()
@@ -39,6 +39,9 @@ class ModuleManager {
 
         //Fun
         addModule(Spin())
+
+        //Minigames
+        addModule(SumoFences())
 
         modules.sortedBy { it.name }
     }

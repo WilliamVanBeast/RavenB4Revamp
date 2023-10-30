@@ -8,12 +8,9 @@ import java.net.URL;
 
 public class URLUtils {
 
-    public static boolean isHypixelKeyValid(String string) {
-        String string2 = getTextFromURL("https://api.hypixel.net/key?key=" + string);
-        return !string2.isEmpty() && !string2.contains("Invalid API");
-    }
+    public static final String hypixelKey = "";
 
-    public static String getTextFromURL(String _url) {
+    public static String getTextFromURL(String _url, Boolean newline) {
         String text = "";
         HttpURLConnection connection = null;
         try {
@@ -21,7 +18,7 @@ public class URLUtils {
             connection = (HttpURLConnection)url.openConnection();
             connection.setConnectTimeout(10000);
             connection.setReadTimeout(10000);
-            text = getTextFromConnection(connection);
+            text = getTextFromConnection(connection, newline);
         } catch (IOException ignored) {
         } finally {
             if (connection != null) {
@@ -32,7 +29,35 @@ public class URLUtils {
         return text;
     }
 
-    private static String getTextFromConnection(HttpURLConnection connection) {
+    public static String getTextFromURL(String _url, List<String[]> headers, Boolean newline) {
+        String text = "";
+        HttpURLConnection connection = null;
+        try {
+            URL url = new URL(_url);
+            connection = (HttpURLConnection)url.openConnection();
+            connection.setConnectTimeout(10000);
+            connection.setReadTimeout(10000);
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.37 (KHTML, like Gecko) Chrome/51.0.2705.103 Safari/537.37");
+            if (headers != null && !headers.isEmpty()) {
+                Iterator header_it = headers.iterator();
+
+                while (header_it.hasNext()) {
+                    String[] header = (String[]) header.next();
+                    connection.setRequestProperty(header[0], header[1]);
+                }
+            }
+            text = getTextFromConnection(connection, newline);
+        } catch (IOException ignored) {
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+
+        }
+        return text;
+    }
+
+    private static String getTextFromConnection(HttpURLConnection connection, Boolean newline) {
         if (connection != null) {
             try {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -41,7 +66,7 @@ public class URLUtils {
                     StringBuilder stringBuilder = new StringBuilder();
                     String input;
                     while((input = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(input);
+                        stringBuilder.append(input + (newline ? "\n": ""));
                     }
                     String res = stringBuilder.toString();
                     connection.disconnect();
@@ -49,6 +74,7 @@ public class URLUtils {
                 } finally {
                     bufferedReader.close();
                 }
+                if (newline) return result.trim();
                 return result;
             } catch (Exception ignored) {}
         }
@@ -57,5 +83,7 @@ public class URLUtils {
     }
 
     // fun d?
-
+    public static final String getTextFromURL(String _url) {
+        return getTextFromURL(_url, false)
+    }
 }

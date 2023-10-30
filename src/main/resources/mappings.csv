@@ -1,11 +1,11 @@
 Class Obf,Class name,Status
-a,SumoTimerTask,
+a,SumoTimerTask,Done
 aa,TransformerMinecraft,
 ab,TargetHUD,
 ac,AutoPlace,
 ad,Setting,
 ae,Teleport,
-af,Duel Stats,
+af,Duels Stats,
 ag,Timer,Done
 ah,SpeedMine Enum,
 ai,?,
@@ -29,17 +29,17 @@ bb,?,
 bc,KeyStrokeMod,
 bd,RotationUtils,Done
 be,Render?,
-bf,AntiShuffle,
+bf,AntiShuffle,Done
 bg,Fake Chat,
 bh,?,
 bi,TransformerMinecraft,
 bj,SessionUtils?,
-bk,Name Hider,
+bk,Name Hider,Done
 bq,FastPlace,
-bs,AntiKnockback,
+bs,AntiKnockback,Done?
 bu,HypixelUtils,
 bv,TransformerFontRenderer,
-bx,Reach,
+bx,Reach,Done
 by,ChestESP,
 bz,Speed,
 c,StopMotion,
@@ -75,7 +75,7 @@ di,Enum??,
 dj,KeyStrokeCommand,
 dk,Timer,
 dl,Check VPN,
-dn,Sumo Fences,
+dn,Sumo Fences,Done
 do,?,
 dp,TransformerLoader,
 dr,ColorUtils,
@@ -113,7 +113,7 @@ ey,ClickGUI screen,
 ez,?,
 f,Test Module,
 fa,InvMove,
-fb,ModuleManager,
+fb,ModuleManager,Done
 fc,?,
 fd,?,
 fe,SliderSetting,
