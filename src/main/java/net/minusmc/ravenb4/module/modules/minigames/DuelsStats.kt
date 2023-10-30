@@ -5,12 +5,16 @@ import net.minusmc.ravenb4.module.Module
 import net.minusmc.ravenb4.module.ModuleCategory
 import net.minusmc.ravenb4.utils.DuelMode
 import net.minusmc.ravenb4.utils.ProfileUtils
+import net.minusmc.ravenb4.utils.PlayerUtils
 import net.minusmc.ravenb4.setting.impl.ComboSetting
 import net.minusmc.ravenb4.setting.impl.SliderSetting
 import net.minusmc.ravenb4.setting.impl.TickSetting
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.client.event.ClientChatReceivedEvent
+import java.util.concurrent.atomic.AtomicBoolean
 
 class DuelsStats: Module("DuelsStats", ModuleCategory.minigames) {
-    private val modeValue = ComboSetting("Mode", DuelMode.values().toTypedArray(), "OVERALL")
+    private val modeValue = ComboSetting("Mode", DuelMode.values().map{it.typeName}.toTypedArray(), "OVERALL")
     private val sendOnJoin = TickSetting("Send on join", false)
     private val threatLevelValue = TickSetting("Thread level", true)
 
@@ -43,24 +47,24 @@ class DuelsStats: Module("DuelsStats", ModuleCategory.minigames) {
     fun sendMessage(playerName: String) {
         if (sendOnJoin.get())
             PlayerUtils.sendMessageToSelf("&7Opponent found: &b$playerName")
-        RavenB4.executor.execute(() -> {
+        RavenB4.executor.execute {
             val stat = ProfileUtils.getHypixelStats2(playerName, DuelMode.valueOf(modeValue.get()))
             if (stat == null) {
                 PlayerUtils.sendMessageToSelf("&b $playerName &7is nicked!")
             } else {
                 val values = stat.values
                 val winPerLose = if (values[0] == 0) values[1].toDouble() else MahtUtils.round(values[0].toDouble() / values[1], 2)
-                if (modeValue.get().equals("OVERALL", true)) {
-                    PlayerUtils.sendMessageToSelf("&7Mode: &b ${e.name()}")
+                if (!modeValue.get().equals("OVERALL", true)) {
+                    PlayerUtils.sendMessageToSelf("&7Mode: &b ${modeValue.get()}")
                 }
                 PlayerUtils.sendMessageToSelf("&r $stat.playerName")
                 PlayerUtils.sendMessageToSelf("&7W/L: &b$winPerLose &7(&b${values[0]} &7W &b${values[1]} &7L)")
                 PlayerUtils.sendMessageToSelf("&7WS: &b${values[2]} &7BWS: &b${values[3]}")
-                if (d.d()) {
-                    PlayerUtils.sendMessageToSelf("&7Threat: &r" + af.d(nArray[0], nArray[1], d, nArray[2], nArray[3]))
+                if (threatLevelValue.get()) {
+                    PlayerUtils.sendMessageToSelf("&7Threat: &r" + checkMode(values[0], values[1], winPerLose, values[2], values[3]))
                 }
             }
-        })
+        }
     }
 
     // wtf check mode?
@@ -117,10 +121,10 @@ class DuelsStats: Module("DuelsStats", ModuleCategory.minigames) {
             value5 += 2
         }
 
-        return if (n5 == 0) "§7§k"
-        else if (n5 <= 3) "Threat level"
-        else if (n5 <= 6) "Send on join"
-        else if (n5 <= 10) "Mode"
+        return if (value5 == 0) "§7§k"
+        else if (value5 <= 3) "Threat level"
+        else if (value5 <= 6) "Send on join"
+        else if (value5 <= 10) "Mode"
         else "Duels Stats"
     }
 
