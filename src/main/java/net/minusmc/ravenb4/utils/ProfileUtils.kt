@@ -7,7 +7,7 @@ object ProfileUtils {
     }
 
 	fun getHypixelStats2(playerName: String, mode: DuelMode): Stats? {
-		val stat = Stats(playerName, 0, 0, 0, 0)
+		val stat = Stats(playerName, listOf(0, 0, 0, 0))
 		val headers = arrayOf(
 			arrayOf("User-Agent", "Mozilla/4.76 (Sk1er ModCore)")
 		)
@@ -26,17 +26,17 @@ object ProfileUtils {
 
 		val displayName = getAttrAsString(objectData, "display")
 		if (!displayName.isEmpty()) {
-			stat.player = displayName.replace("Â§", "§")
+			stat.playerName = displayName.replace("Â§", "§")
 		}
 
 		when (mode) {
-			DuelMode.OVERALL -> stat.values = listOf(getAttrAsInt(stat, "wins"), getAttrAsInt(stat, "losses"), getAttrAsInt(stat, "current_winstreak"), getAttrAsInt(stat, "best_overall_winstreak"))
-	     	DuelMode.BRIDGE -> stat.values = listOf(getAttrAsInt(stat, "bridge_duel_wins"), getAttrAsInt(stat, "bridge_duel_losses"), getAttrAsInt(stat, "current_winstreak_mode_bridge_duel"), getAttrAsInt(stat, "best_winstreak_mode_bridge_duel"))
-	        DuelMode.UHC -> listOf(getAttrAsInt(stat, "uhc_duel_wins"), getAttrAsInt(stat, "uhc_duel_losses"), getAttrAsInt(stat, "current_winstreak_mode_uhc_duel"), getAttrAsInt(stat, "best_winstreak_mode_uhc_duel"))
-	        DuelMode.SKYWARS -> listOf(getAttrAsInt(stat, "sw_duel_wins"), getAttrAsInt(stat, "sw_duel_losses"), getAttrAsInt(stat, "current_winstreak_mode_sw_duel"), getAttrAsInt(stat, "best_winstreak_mode_sw_duel"))
-	        DuelMode.CLASSIC -> listOf(getAttrAsInt(stat, "classic_duel_wins"), getAttrAsInt(stat, "classic_duel_losses"), getAttrAsInt(stat, "current_winstreak_mode_classic_duel"), getAttrAsInt(stat, "best_winstreak_mode_classic_duel"))
-	        DuelMode.SUMO -> listOf(getAttrAsInt(stat, "sumo_duel_wins"), getAttrAsInt(stat, "sumo_duel_losses"), getAttrAsInt(stat, "current_winstreak_mode_sumo_duel"), getAttrAsInt(stat, "best_winstreak_mode_sumo_duel"))
-	        DuelMode.OP -> listOf(getAttrAsInt(stat, "op_duel_wins"), getAttrAsInt(stat, "op_duel_losses"), getAttrAsInt(stat, "current_winstreak_mode_op_duel"), getAttrAsInt(stat, "best_winstreak_mode_op_duel"))
+			DuelMode.OVERALL -> stat.values = listOf(getAttrAsInt(stats, "wins"), getAttrAsInt(stats, "losses"), getAttrAsInt(stats, "current_winstreak"), getAttrAsInt(stats, "best_overall_winstreak"))
+	     	DuelMode.BRIDGE -> stat.values = listOf(getAttrAsInt(stats, "bridge_duel_wins"), getAttrAsInt(stats, "bridge_duel_losses"), getAttrAsInt(stats, "current_winstreak_mode_bridge_duel"), getAttrAsInt(stats, "best_winstreak_mode_bridge_duel"))
+	        DuelMode.UHC -> stat.values = listOf(getAttrAsInt(stats, "uhc_duel_wins"), getAttrAsInt(stats, "uhc_duel_losses"), getAttrAsInt(stats, "current_winstreak_mode_uhc_duel"), getAttrAsInt(stats, "best_winstreak_mode_uhc_duel"))
+	        DuelMode.SKYWARS -> stat.values = listOf(getAttrAsInt(stats, "sw_duel_wins"), getAttrAsInt(stats, "sw_duel_losses"), getAttrAsInt(stats, "current_winstreak_mode_sw_duel"), getAttrAsInt(stats, "best_winstreak_mode_sw_duel"))
+	        DuelMode.CLASSIC -> stat.values = listOf(getAttrAsInt(stats, "classic_duel_wins"), getAttrAsInt(stats, "classic_duel_losses"), getAttrAsInt(stats, "current_winstreak_mode_classic_duel"), getAttrAsInt(stats, "best_winstreak_mode_classic_duel"))
+	        DuelMode.SUMO -> stat.values = listOf(getAttrAsInt(stats, "sumo_duel_wins"), getAttrAsInt(stats, "sumo_duel_losses"), getAttrAsInt(stats, "current_winstreak_mode_sumo_duel"), getAttrAsInt(stats, "best_winstreak_mode_sumo_duel"))
+	        DuelMode.OP -> stat.values = listOf(getAttrAsInt(stats, "op_duel_wins"), getAttrAsInt(stats, "op_duel_losses"), getAttrAsInt(stats, "current_winstreak_mode_op_duel"), getAttrAsInt(stats, "best_winstreak_mode_op_duel"))
 		}
 		return stat
 	}
@@ -58,13 +58,13 @@ object ProfileUtils {
 		}
 
 		return when (mode) {
-			DuelMode.OVERALL -> listOf(getAttrAsInt(stat, "wins"), getAttrAsInt(stat, "losses"), getAttrAsInt(stat, "current_winstreak"))
-	     	DuelMode.BRIDGE -> listOf(getAttrAsInt(stat, "bridge_duel_wins"), getAttrAsInt(stat, "bridge_duel_losses"), getAttrAsInt(stat, "current_winstreak_mode_bridge_duel"))
-	        DuelMode.UHC -> listOf(getAttrAsInt(stat, "uhc_duel_wins"), getAttrAsInt(stat, "uhc_duel_losses"), getAttrAsInt(stat, "current_winstreak_mode_uhc_duel"))
-	        DuelMode.SKYWARS -> listOf(getAttrAsInt(stat, "sw_duel_wins"), getAttrAsInt(stat, "sw_duel_losses"), getAttrAsInt(stat, "current_winstreak_mode_sw_duel"))
-	        DuelMode.CLASSIC -> listOf(getAttrAsInt(stat, "classic_duel_wins"), getAttrAsInt(stat, "classic_duel_losses"), getAttrAsInt(stat, "current_winstreak_mode_classic_duel"))
-	        DuelMode.SUMO -> listOf(getAttrAsInt(stat, "sumo_duel_wins"), getAttrAsInt(stat, "sumo_duel_losses"), getAttrAsInt(stat, "current_winstreak_mode_sumo_duel"))
-	        DuelMode.OP -> listOf(getAttrAsInt(stat, "op_duel_wins"), getAttrAsInt(stat, "op_duel_losses"), getAttrAsInt(stat, "current_winstreak_mode_op_duel"))
+			DuelMode.OVERALL -> listOf(getAttrAsInt(stats, "wins"), getAttrAsInt(stats, "losses"), getAttrAsInt(stats, "current_winstreak"))
+	     	DuelMode.BRIDGE -> listOf(getAttrAsInt(stats, "bridge_duel_wins"), getAttrAsInt(stats, "bridge_duel_losses"), getAttrAsInt(stats, "current_winstreak_mode_bridge_duel"))
+	        DuelMode.UHC -> listOf(getAttrAsInt(stats, "uhc_duel_wins"), getAttrAsInt(stats, "uhc_duel_losses"), getAttrAsInt(stats, "current_winstreak_mode_uhc_duel"))
+	        DuelMode.SKYWARS -> listOf(getAttrAsInt(stats, "sw_duel_wins"), getAttrAsInt(stats, "sw_duel_losses"), getAttrAsInt(stats, "current_winstreak_mode_sw_duel"))
+	        DuelMode.CLASSIC -> listOf(getAttrAsInt(stats, "classic_duel_wins"), getAttrAsInt(stats, "classic_duel_losses"), getAttrAsInt(stats, "current_winstreak_mode_classic_duel"))
+	        DuelMode.SUMO -> listOf(getAttrAsInt(stats, "sumo_duel_wins"), getAttrAsInt(stats, "sumo_duel_losses"), getAttrAsInt(stats, "current_winstreak_mode_sumo_duel"))
+	        DuelMode.OP -> listOf(getAttrAsInt(stats, "op_duel_wins"), getAttrAsInt(stats, "op_duel_losses"), getAttrAsInt(stats, "current_winstreak_mode_op_duel"))
 	        else -> null
 		}
 	}
@@ -114,7 +114,7 @@ object ProfileUtils {
 	}
 }
 
-class Stats(val player: String, val values: List<Int>)
+class Stats(val playerName: String, val values: List<Int>)
 
 enum class DuelMode {
 	OVERALL, BRIDGE, UHC, SKYWARS, CLASSIC, SUMO, OP
