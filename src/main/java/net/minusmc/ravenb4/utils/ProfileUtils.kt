@@ -11,16 +11,16 @@ object ProfileUtils {
 
 	fun getHypixelStats2(playerName: String, mode: DuelMode): Stats? {
 		val stat = Stats(playerName, listOf(0, 0, 0, 0))
-		val userAgent = arrayOf("User-Agent", "Mozilla/4.76 (Sk1er ModCore)")
-		val text = URLUtils.getTextFromURL("https://api.sk1er.club/player/" + playerName, arrayOf(userAgent), false)
+		val userAgent = listOf("User-Agent", "Mozilla/4.76 (Sk1er ModCore)")
+		val text = URLUtils.getTextFromURL("https://api.sk1er.club/player/$playerName", listOf(userAgent), false)
 		if (text.length < 50) return null
 
 		val objectData: JsonObject
 		val stats: JsonObject
 
 		try {
-			objectData = parseJson(text).asJsonObject["player"]
-			stats = objectData.asJsonObject["stats"].asJsonObject["Duels"]
+			objectData = parseJson(text).getAsJsonObject("player")
+			stats = objectData.asJsonObject["stats"].getAsJsonObject("Duels")
 		} catch (e: NullPointerException) {
 			return stat
 		}
@@ -42,7 +42,7 @@ object ProfileUtils {
 		return stat
 	}
 
-	fun getHypixelStats(playerName: String, mode: DuelMode): List<Int> {
+	fun getHypixelStats(playerName: String, mode: DuelMode): List<Int>? {
 		val idProfile = getIdProfile(playerName)
 		if (!idProfile.isEmpty()) return listOf(-1, 0, 0)
 
@@ -52,10 +52,10 @@ object ProfileUtils {
 		val stats: JsonObject
 
 		try {
-			val objectData = parseJson(text).asJsonObject["player"]
-			stats = objectData.asJsonObject["stats"].asJsonObject["Duels"]
+			val objectData = parseJson(text).getAsJsonObject("player")
+			stats = objectData.asJsonObject["stats"].getAsJsonObject("Duels")
 		} catch (e: NullPointerException) {
-			return stat
+			return listOf(-1, 0, 0)
 		}
 
 		return when (mode) {
@@ -105,7 +105,7 @@ object ProfileUtils {
 	}
 
 	fun getNameProfile(id: String): String {
-		val text = URLUtils.getTextFromURL("https://api.mojang.com/users/profile/$name")
+		val text = URLUtils.getTextFromURL("https://api.mojang.com/users/profile/$id")
 		if (text.isEmpty()) return ""
 		try {
 			return text.replace(" ", "").split("e\":\"")[1].split("\"")[0]
