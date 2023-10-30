@@ -6,6 +6,7 @@ import net.minusmc.ravenb4.module.ModuleCategory
 import net.minusmc.ravenb4.utils.DuelMode
 import net.minusmc.ravenb4.utils.ProfileUtils
 import net.minusmc.ravenb4.utils.PlayerUtils
+import net.minusmc.ravenb4.utils.MathUtils
 import net.minusmc.ravenb4.setting.impl.ComboSetting
 import net.minusmc.ravenb4.setting.impl.SliderSetting
 import net.minusmc.ravenb4.setting.impl.TickSetting
@@ -14,7 +15,7 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent
 import java.util.concurrent.atomic.AtomicBoolean
 
 class DuelsStats: Module("DuelsStats", ModuleCategory.minigames) {
-    private val modeValue = ComboSetting("Mode", DuelMode.values().map{it.typeName}.toTypedArray(), "OVERALL")
+    private val modeValue = ComboSetting("Mode", DuelMode.values().map{it.name}.toTypedArray(), "OVERALL")
     private val sendOnJoin = TickSetting("Send on join", false)
     private val threatLevelValue = TickSetting("Thread level", true)
 
@@ -30,7 +31,7 @@ class DuelsStats: Module("DuelsStats", ModuleCategory.minigames) {
 
     @SubscribeEvent
     fun onMessageRecieved(event: ClientChatReceivedEvent) {
-        if (event.type != 2 && PlayerUtils.isPlayerInGame()) {
+        if (event.type != 2.toByte() && PlayerUtils.isPlayerInGame) {
             if (atomicBool.compareAndSet(true, false)) {
                 PlayerUtils.sendMessageToSelf("")
             }
@@ -53,7 +54,7 @@ class DuelsStats: Module("DuelsStats", ModuleCategory.minigames) {
                 PlayerUtils.sendMessageToSelf("&b $playerName &7is nicked!")
             } else {
                 val values = stat.values
-                val winPerLose = if (values[0] == 0) values[1].toDouble() else MahtUtils.round(values[0].toDouble() / values[1], 2)
+                val winPerLose = if (values[0] == 0) values[1].toDouble() else MathUtils.round(values[0].toDouble() / values[1], 2)
                 if (!modeValue.get().equals("OVERALL", true)) {
                     PlayerUtils.sendMessageToSelf("&7Mode: &b ${modeValue.get()}")
                 }
@@ -115,8 +116,9 @@ class DuelsStats: Module("DuelsStats", ModuleCategory.minigames) {
         } else if (value1 >= 1000) {
             ++value5
         }
+
         if (value2 == 0) {
-            value5 = if (value1 == 0) value5 += 3 else value5 += 4
+            value5 += if (value1 == 0) 3 else 4
         } else if (value2 <= 10 && winPerLose >= 4.0) {
             value5 += 2
         }

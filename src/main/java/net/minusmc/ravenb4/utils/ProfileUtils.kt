@@ -1,17 +1,18 @@
 package net.minusmc.ravenb4.utils
 
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+
 object ProfileUtils {
 	fun isHypixelKeyValid(key: String): Boolean {
-        val string2 = getTextFromURL("https://api.hypixel.net/key?key=" + key, false)
+        val string2 = URLUtils.getTextFromURL("https://api.hypixel.net/key?key=" + key, false)
         return !string2.isEmpty() && !string2.contains("Invalid API")
     }
 
 	fun getHypixelStats2(playerName: String, mode: DuelMode): Stats? {
 		val stat = Stats(playerName, listOf(0, 0, 0, 0))
-		val headers = arrayOf(
-			arrayOf("User-Agent", "Mozilla/4.76 (Sk1er ModCore)")
-		)
-		val text = URLUtils.getTextFromURL("https://api.sk1er.club/player/" + playerName, headers, false)
+		val userAgent = arrayOf("User-Agent", "Mozilla/4.76 (Sk1er ModCore)")
+		val text = URLUtils.getTextFromURL("https://api.sk1er.club/player/" + playerName, arrayOf(userAgent), false)
 		if (text.length < 50) return null
 
 		val objectData: JsonObject
@@ -75,7 +76,7 @@ object ProfileUtils {
 
 	fun parseJson(text: String) = JsonParser().parse(text).asJsonObject
 
-	fun getAttrAsString(objectData: JsonObject, attr: String) {
+	fun getAttrAsString(objectData: JsonObject, attr: String): String {
 		try {
 			return objectData[attr].asString
 		} catch (e: Exception) {
@@ -83,7 +84,7 @@ object ProfileUtils {
 		}
 	}
 
-	fun getAttrAsInt(objectData: JsonObject, attr: String) {
+	fun getAttrAsInt(objectData: JsonObject, attr: String): Int {
 		try {
 			return objectData[attr].asInt
 		} catch (e: Exception) {
@@ -114,7 +115,7 @@ object ProfileUtils {
 	}
 }
 
-class Stats(val playerName: String, val values: List<Int>)
+class Stats(var playerName: String, var values: List<Int>)
 
 enum class DuelMode {
 	OVERALL, BRIDGE, UHC, SKYWARS, CLASSIC, SUMO, OP
