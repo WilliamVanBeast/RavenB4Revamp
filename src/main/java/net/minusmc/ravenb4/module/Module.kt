@@ -17,7 +17,7 @@ open class Module(val name: String, val category: ModuleCategory): MinecraftInst
     private var keycode = 0
     protected val defualtKeyCode = keycode
 
-    private var isToggled = false
+    var isToggled = false
 
     fun getConfigAsJson(): JsonObject {
         val settings = JsonObject()

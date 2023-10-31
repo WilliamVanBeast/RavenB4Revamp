@@ -2,7 +2,7 @@ package net.minusmc.ravenb4.utils
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-
+import java.util.ArrayList
 object ProfileUtils {
 	fun isHypixelKeyValid(key: String): Boolean {
         val string2 = URLUtils.getTextFromURL("https://api.hypixel.net/key?key=" + key, false)
@@ -11,8 +11,9 @@ object ProfileUtils {
 
 	fun getHypixelStats2(playerName: String, mode: DuelMode): Stats? {
 		val stat = Stats(playerName, listOf(0, 0, 0, 0))
-		val userAgent: List<String> = emptyList()
-		userAgent.add("User-Agent", "Mozilla/4.76 (Sk1er ModCore)")
+		val userAgent = ArrayList<String>()
+		userAgent.plus("User-Agent")
+		userAgent.plus("Mozilla/4.76 (Sk1er ModCore)")
 		
 		val text = URLUtils.getTextFromURL("https://api.sk1er.club/player/$playerName", listOf(userAgent), false)
 		if (text.length < 50) return null
@@ -28,7 +29,7 @@ object ProfileUtils {
 		}
 
 		val displayName = getAttrAsString(objectData, "display")
-		if (!displayName.isEmpty()) {
+		if (displayName.isNotEmpty()) {
 			stat.playerName = displayName.replace("Â§", "§")
 		}
 

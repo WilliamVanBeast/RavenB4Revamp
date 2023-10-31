@@ -1,13 +1,17 @@
 package net.minusmc.ravenb4.utils
 
  import net.minecraft.entity.Entity
+ import net.minecraft.init.Items
  import net.minecraft.item.ItemAxe
  import net.minecraft.item.ItemBlock
+ import net.minecraft.item.ItemFishingRod
  import net.minecraft.item.ItemSword
  import net.minecraft.network.play.client.C03PacketPlayer
  import net.minecraft.potion.Potion
  import net.minecraft.util.BlockPos
  import net.minecraft.util.ChatComponentText
+ import net.minusmc.ravenb4.RavenB4
+ import net.minusmc.ravenb4.module.modules.others.Settings
  import net.minusmc.ravenb4.utils.RotationUtils.getRotationToEntity
  import org.lwjgl.input.Mouse
  import kotlin.math.atan2
@@ -140,4 +144,14 @@ object PlayerUtils: MinecraftInstance() {
             mc.thePlayer.isSwingInProgress = true
         }
  	}
+
+	fun isWeapon(): Boolean {
+		if (mc.thePlayer.heldItem == null) return false
+		val item = mc.thePlayer.heldItem.item
+		val settingModule = RavenB4.moduleManager[Settings::class.java]!!
+		return if (item is ItemSword) true
+		else if (settingModule.axeWeapon.get() && item is ItemAxe) true
+		else if (settingModule.rodWeapon.get() && item is ItemFishingRod) true
+		else settingModule.stickWeapon.get() && item == Items.stick
+	}
 }

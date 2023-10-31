@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class URLUtils {
@@ -30,7 +32,7 @@ public class URLUtils {
         return text;
     }
 
-    public static String getTextFromURL(String _url, List<String[]> headers, Boolean newline) {
+    public static String getTextFromURL(String _url, List<ArrayList<String>> headers, Boolean newline) {
         String text = "";
         HttpURLConnection connection = null;
         try {
@@ -43,7 +45,7 @@ public class URLUtils {
                 Iterator header_it = headers.iterator();
 
                 while (header_it.hasNext()) {
-                    String[] header = (String[]) header.next();
+                    String[] header = (String[]) header_it.next();
                     connection.setRequestProperty(header[0], header[1]);
                 }
             }
@@ -85,6 +87,6 @@ public class URLUtils {
 
     // fun d?
     public static final String getTextFromURL(String _url) {
-        return getTextFromURL(_url, false)
+        return getTextFromURL(_url, false);
     }
 }
