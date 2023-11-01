@@ -16,7 +16,8 @@ import org.lwjgl.input.Keyboard
 import org.lwjgl.input.Mouse
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
-
+import kotlin.random.Random
+import kotlin.math.round
 
 class AutoClicker: Module("AutoClicker", ModuleCategory.combat) {
     private val minCPS = SliderSetting("MinCPS", 9.0, 1.0, 20.0, 0.5)
@@ -34,7 +35,13 @@ class AutoClicker: Module("AutoClicker", ModuleCategory.combat) {
 
     private var leftDownTime = 0L
     private var leftUpTime = 0L
+    private var leftk = 0L
+    private var leftl = 0L
+    private var leftm = 0L
     private var leftn = false
+
+    private var blocking = false
+
     init {
         addSetting(DescriptionSetting("Auto Clicker Desc", "Best with delay remover."))
         addSetting(minCPS)
@@ -59,6 +66,12 @@ class AutoClicker: Module("AutoClicker", ModuleCategory.combat) {
         if (playerMouseInput != null) playerMouseInput.isAccessible = true
     }
 
+    override fun onDisable() {
+        leftDownTime = 0
+        leftUpTime = 0
+        blocking = false
+    }
+
     @SubscribeEvent
     fun onRenderTick(event: RenderTickEvent) {
         if (event.phase == TickEvent.Phase.END && PlayerUtils.isPlayerInGame) {
@@ -68,10 +81,10 @@ class AutoClicker: Module("AutoClicker", ModuleCategory.combat) {
 
                 if (leftClicker.get() && Mouse.isButtonDown(0)) {
                     if (weaponOnly.get() && !isWeapon) return
-                    // ham j do
+                    click(mc.gameSettings.keyBindAttack.keyCode, 0)
                 } else if (rightClicker.get() && Mouse.isButtonDown(1)) {
                     if (blocksOnly.get() && (mc.thePlayer.currentEquippedItem != null || mc.thePlayer.currentEquippedItem.item !is ItemBlock)) return
-                    // ham j do
+                    click(mc.gameSettings.keyBindUseItem.keyCode, 1)
                 } else {
                     leftDownTime = 0
                     leftUpTime = 0
@@ -90,29 +103,73 @@ class AutoClicker: Module("AutoClicker", ModuleCategory.combat) {
         }
     }
 
+    fun click(keyCode: Int, mouseButton: Int) {
+        if (breakBlocks.get && mouseButton == 0 && mc.objectMouseOver != null) {
+            val blockPos = mc.objectMouseOver.blockPos
+            if (blockPos != null) {
+                val block = mc.theWorld.getBlockState(blockPos).block
+                if (block != Blocks.air && block !is BlockLiquid) {
+                    KeyBinding.setKeyBindState(keyCode, true)
+                    blocking = true
+                    return
+                }
+
+                if (blocking) {
+                    KeyBinding.setKeyBindState(keyCode, false)
+                    blocking = false
+                }
+            }
+        }
+
+        if (jitter.get() > 0.0) {
+            val jitterMul = jitter.get().toFloat() * 0.45f
+            if (Random.nextBoolean()) 
+                mc.thePlayer.rotationYaw += Random.nextFloat() * jitterMul
+            else
+                mc.thePlayer.rotationYaw -= Random.nextFloat() * jitterMul
+
+            if (Random.nextBoolean())
+                mc.thePlayer.rotationPitch += Random.nextFloat() * jitterMul * 0.45f
+            else
+                mc.thePlayer.rotationPitch -= Random.nextFloat() * jitterMul * 0.45f
+        }
+
+        if (leftDownTime > 0 && leftUpTime > 0) {
+            if (System.currentTimeMillis() > leftUpTime) {
+                KeyBinding.setKeyBindState(keyCode, true)
+                KeyBinding.onTick(keyCode)
+                genLeftTimings()
+
+            }
+        }
+    }
+
     fun genLeftTimings() {
-        val clickSpeed: Double = Utils.Client.ranModuleVal(leftCPS, this.rand) + 0.4 * this.rand.nextDouble()
-        var delay = Math.round(1000.0 / clickSpeed).toInt().toLong()
-        if (System.currentTimeMillis() > this.leftk) {
-            if (!this.leftn && this.rand.nextInt(100) >= 85) {
-                this.leftn = true
-                this.leftm = 1.1 + this.rand.nextDouble() * 0.15
-            } else {
-                this.leftn = false
-            }
-            this.leftk = System.currentTimeMillis() + 500L + this.rand.nextInt(1500) as Long
+        val clickSpeed: Double = RandomUtils.nextDouble(minCPS, maxCPS) + 0.4 * Random.nextDouble()
+        var delay = round(1000.0 / clickSpeed).toLong()
+
+        if (System.currentTimeMillis() > leftk) {
+
+            if (!leftn && Random.nextInt(100) >= 85) {
+                leftn = true
+                leftm = 1.1 + Random.nextDouble() * 0.15
+            } else
+                leftn = false
+
+            leftk = System.currentTimeMillis() + 500L + Random.nextInt(1500).toLong()
         }
-        if (this.leftn) {
-            delay = (delay.toDouble() * this.leftm) as Long
+        if (leftn)
+            delay = (delay.toDouble() * leftm).toLong()
+
+        if (System.currentTimeMillis() > leftl) {
+            if (Random.nextInt(100) >= 80)
+                delay += 50L + Random.nextInt(100).toLong()
+
+            leftl = System.currentTimeMillis() + 500L + Random.nextInt(1500).toLong()
         }
-        if (System.currentTimeMillis() > this.leftl) {
-            if (this.rand.nextInt(100) >= 80) {
-                delay += 50L + this.rand.nextInt(100) as Long
-            }
-            this.leftl = System.currentTimeMillis() + 500L + this.rand.nextInt(1500) as Long
-        }
+
         leftUpTime = System.currentTimeMillis() + delay
-        leftDownTime = System.currentTimeMillis() + delay / 2L - this.rand.nextInt(10) as Long
+        leftDownTime = System.currentTimeMillis() + delay / 2L - Random.nextInt(10).toLong()
     }
 
     private fun inInvClick(guiScreen: GuiScreen) {
@@ -120,8 +177,8 @@ class AutoClicker: Module("AutoClicker", ModuleCategory.combat) {
         val mouseInGUIPosY = guiScreen.height - Mouse.getY() * guiScreen.height / mc.displayHeight - 1
         try {
             playerMouseInput.invoke(guiScreen, mouseInGUIPosX, mouseInGUIPosY, 0)
-        } catch (var5: IllegalAccessException) {
-        } catch (var5: InvocationTargetException) {
+        } catch (e: IllegalAccessException) {
+        } catch (e: InvocationTargetException) {
         }
     }
 }

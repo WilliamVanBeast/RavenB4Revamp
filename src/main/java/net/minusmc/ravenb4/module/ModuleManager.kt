@@ -16,6 +16,7 @@ class ModuleManager {
 
     init {
         //Combat
+        addModule(AutoClicker())
         addModule(AntiKnockback())
         addModule(Reach())
 
@@ -59,6 +60,8 @@ class ModuleManager {
 
     fun getBoxHeight(fontRenderer: FontRenderer, margin: Int) = modules.filter { it.enabled }.sumOf { fontRenderer.FONT_HEIGHT + margin }
 
-    operator fun <T: Module> get(clazz: Class<T>): T? = moduleClassMap[clazz] as T?
     fun <T: Module> getModule(clazz: Class<T>): T? = moduleClassMap[clazz] as T?
+
+    operator fun <T: Module> get(clazz: Class<T>): T? = getModule(clazz)
+    
 }
