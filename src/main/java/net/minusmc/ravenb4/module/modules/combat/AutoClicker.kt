@@ -82,7 +82,7 @@ class AutoClicker: Module("AutoClicker", ModuleCategory.combat) {
     fun onRenderTick(event: RenderTickEvent) {
         if (event.phase == TickEvent.Phase.END && PlayerUtils.isPlayerInGame) {
             if (mc.currentScreen == null && mc.inGameHasFocus) {
-                val isWeapon = PlayerUtils.isWeapon()
+                val isWeapon = PlayerUtils.isCurrentHeldWeapon()
                 if (!isWeapon && mc.thePlayer.isEating) return
 
                 if (leftClicker.get() && Mouse.isButtonDown(0)) {

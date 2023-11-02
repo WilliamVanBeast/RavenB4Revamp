@@ -9,20 +9,23 @@ import net.minecraft.util.MovingObjectPosition
 import net.minecraft.util.Vec3
 import net.minecraftforge.client.event.MouseEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minusmc.ravenb4.RavenB4
 import net.minusmc.ravenb4.module.Module
 import net.minusmc.ravenb4.module.ModuleCategory
 import net.minusmc.ravenb4.setting.impl.SliderSetting
 import net.minusmc.ravenb4.setting.impl.TickSetting
-import org.apache.commons.lang3.RandomUtils
+import net.minusmc.ravenb4.utils.RandomUtils
+import net.minusmc.ravenb4.utils.PlayerUtils
+import org.lwjgl.input.Mouse
 
 
 class Reach: Module("Reach", ModuleCategory.combat) {
-    private val minReach: SliderSetting = SliderSetting("Min Reach", 3.1, 3.0, 6.0, 0.05)
-    private val maxReach: SliderSetting = SliderSetting("Max Reach", 3.3, 3.0, 6.0, 0.05)
-    private val weaponOnly: TickSetting = TickSetting("Weapon Only", false)
-    private val movingOnly: TickSetting = TickSetting("Moving Only", false)
-    private val sprintOnly: TickSetting = TickSetting("Sprint Only", false)
-    private val hitThroughBlocks: TickSetting = TickSetting("Hit Through Blocks", false)
+    private val minReach = SliderSetting("Min Reach", 3.1, 3.0, 6.0, 0.05)
+    private val maxReach = SliderSetting("Max Reach", 3.3, 3.0, 6.0, 0.05)
+    private val weaponOnly = TickSetting("Weapon Only", false)
+    private val movingOnly = TickSetting("Moving Only", false)
+    private val sprintOnly = TickSetting("Sprint Only", false)
+    private val hitThroughBlocks = TickSetting("Hit Through Blocks", false)
 
     init {
         addSetting(minReach)
@@ -35,12 +38,10 @@ class Reach: Module("Reach", ModuleCategory.combat) {
 
     @SubscribeEvent
     fun onMouseClick(event: MouseEvent) {
-        if (event.button < 0 || !event.buttonstate) {
-            return
-        }
-        if (isConditionsMet()) {
-            performReachAction()
-        }
+        if (!PlayerUtils.isPlayerInGame || event.button < 0 || !event.buttonstate) return
+        val autoClicker = RavenB4.moduleManager[AutoClicker::class.java]!!
+        if (autoClicker.enabled && autoClicker.leftClicker.get() && Mouse.isButtonDown(0)) return
+        canReach()
     }
 
     fun rayTrace(reachMax: Double, exMul: Double): Array<Any>? {
@@ -101,11 +102,11 @@ class Reach: Module("Reach", ModuleCategory.combat) {
         if (!PlayerUtils.isPlayerInGame) return false
         if (weaponOnly.get() && !PlayerUtils.isCurrentHeldWeapon()) return false
         if (movingOnly.get() && mc.thePlayer.motionX == 0.0 && mc.thePlayer.motionZ == 0.0) return false
-        if (sprintOnly && !mc.thePlayer.isSprinting) return false
+        if (sprintOnly.get() && !mc.thePlayer.isSprinting) return false
 
         if (!hitThroughBlocks.get() && mc.objectMouseOver != null) {
             val blockPos = mc.objectMouseOver.blockPos
-            if (blockPos != null && mc.thePlayer.getBlockState(blockPos).block != Blocks.air)
+            if (blockPos != null && mc.theWorld.getBlockState(blockPos).block != Blocks.air)
                 return false
         }
 
@@ -114,8 +115,6 @@ class Reach: Module("Reach", ModuleCategory.combat) {
         val entity = objectArray[0] as Entity
         mc.objectMouseOver = MovingObjectPosition(entity, objectArray[1] as Vec3)
         mc.pointedEntity = entity
-
-        mc.playerController.attackEntity(mc.thePlayer, entity)
         return true
     }
 

@@ -17,10 +17,10 @@ import org.lwjgl.input.Keyboard
 
 class SafeWalk: Module("SafeWalk", ModuleCategory.player) {
     private val delayNextShift = SliderSetting("Delay until next shift", 0.0, 0.0, 800.0, 10.0)
-    private val blocksOnly = TickSetting("Blocks only", true)
+    val blocksOnly = TickSetting("Blocks only", true)
     private val disableOnForward = TickSetting("Disable on forward", false)
     private val pitchCheck = TickSetting("Pitch check", false)
-    private val shiftValue = TickSetting("Shift", false)
+    val shiftValue = TickSetting("Shift", false)
 
     private var sneaking = false
     private var timestampSafeWalk = 0L

@@ -45,8 +45,8 @@ public class ASMEventHandler {
       if (entity == mc.thePlayer && mc.thePlayer.onGround) {
          SafeWalk safeWalk = RavenB4.moduleManager.getModule(SafeWalk.class);
 
-         if (safeWalk != null && safeWalk.getEnabled() && !SafeWalk.getShiftValue().get()) {
-            if (SafeWalk.getBlocksOnly().get()) {
+         if (safeWalk != null && safeWalk.getEnabled() && !safeWalk.getShiftValue().get()) {
+            if (safeWalk.getBlocksOnly().get()) {
                ItemStack i = mc.thePlayer.getHeldItem();
                if (i == null || !(i.getItem() instanceof ItemBlock)) {
                   return mc.thePlayer.isSneaking();

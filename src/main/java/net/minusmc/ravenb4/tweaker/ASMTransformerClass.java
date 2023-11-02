@@ -24,8 +24,6 @@ public class ASMTransformerClass implements IClassTransformer {
       this.addTransformer(new TransformerEntityPlayer());
       this.addTransformer(new TransformerMinecraft());
 
-      this.addTransformer(new TransformerSplashProgress());
-
       this.addTransformer(new TransformerThrowableItem());
    }
 
