@@ -16,7 +16,7 @@ import net.minusmc.ravenb4.setting.impl.TickSetting
 import org.apache.commons.lang3.RandomUtils
 
 
-class Reach: Module("Reach", ModuleCategory.combat){
+class Reach: Module("Reach", ModuleCategory.combat) {
     private val minReach: SliderSetting = SliderSetting("Min Reach", 3.1, 3.0, 6.0, 0.05)
     private val maxReach: SliderSetting = SliderSetting("Max Reach", 3.3, 3.0, 6.0, 0.05)
     private val weaponOnly: TickSetting = TickSetting("Weapon Only", false)
@@ -43,101 +43,80 @@ class Reach: Module("Reach", ModuleCategory.combat){
         }
     }
 
-    private fun rayTrace(zzD: Double, zzE: Double): Array<Any>? {
-        var zzD = zzD
-        val entity1 = mc.renderViewEntity
-        var entity: Entity? = null
-        return if (entity1 == null) {
-            null
-        } else {
-            mc.mcProfiler.startSection("pick")
-            val eyes_positions = entity1.getPositionEyes(1.0f)
-            val look = entity1.getLook(1.0f)
-            val new_eyes_pos = eyes_positions.addVector(look.xCoord * zzD, look.yCoord * zzD, look.zCoord * zzD)
-            var zz6: Vec3? = null
-            val zz8 = mc.theWorld.getEntitiesWithinAABBExcludingEntity(
-                entity1,
-                entity1.entityBoundingBox.addCoord(look.xCoord * zzD, look.yCoord * zzD, look.zCoord * zzD)
-                    .expand(1.0, 1.0, 1.0)
-            )
-            var zz9 = zzD
-            for (o in zz8) {
-                if (o.canBeCollidedWith()) {
-                    val ex = (o.collisionBorderSize.toDouble())
-                    var zz13 = o.entityBoundingBox.expand(ex, ex, ex)
-                    zz13 = zz13.expand(zzE, zzE, zzE)
-                    val zz14 = zz13.calculateIntercept(eyes_positions, new_eyes_pos)
-                    if (zz13.isVecInside(eyes_positions)) {
-                        if (0.0 < zz9 || zz9 == 0.0) {
-                            entity = o
-                            zz6 = if (zz14 == null) eyes_positions else zz14.hitVec
-                            zz9 = 0.0
-                        }
-                    } else if (zz14 != null) {
-                        val zz15 = eyes_positions.distanceTo(zz14.hitVec)
-                        if (zz15 < zz9 || zz9 == 0.0) {
-                            if (o === entity1.ridingEntity) {
-                                if (zz9 == 0.0) {
-                                    entity = o
-                                    zz6 = zz14.hitVec
-                                }
-                            } else {
-                                entity = o
-                                zz6 = zz14.hitVec
-                                zz9 = zz15
+    fun rayTrace(reachMax: Double, exMul: Double): Array<Any>? {
+        var reachMax = if (!enabled) {
+            if (mc.playerController.extendedReach()) 6.0 else 3.0
+        } else reachMax
+
+        val entityRender = mc.renderViewEntity ?: return null
+        var entitySelected: Entity? = null
+
+        mc.mcProfiler.startSection("pick")
+        val eyePos = entityRender.getPositionEyes(1.0f)
+        val look = entityRender.getLook(1.0f)
+        val vector = eyePos.addVector(look.xCoord * reachMax, look.yCoord * reachMax, look.zCoord * reachMax)
+        var hitVec: Vec3? = null
+        val entities = mc.theWorld.getEntitiesWithinAABBExcludingEntity(entityRender, entityRender.entityBoundingBox.addCoord(look.xCoord * reachMax, look.yCoord * reachMax, look.zCoord * reachMax).expand(1.0, 1.0, 1.0))
+        
+        var reach = reachMax
+        for (entity in entities) {
+            if (entity.canBeCollidedWith()) {
+                val collisionSize = entity.collisionBorderSize.toDouble()
+                var boudingBox = entity.entityBoundingBox.expand(collisionSize, collisionSize, collisionSize)
+                boudingBox = boudingBox.expand(exMul, exMul, exMul)
+                val movingObjectPos = boudingBox.calculateIntercept(eyePos, vector)
+                if (boudingBox.isVecInside(eyePos)) {
+                    if (reach >= 0.0) {
+                        entitySelected = entity
+                        hitVec = if (movingObjectPos == null) eyePos else movingObjectPos.hitVec
+                        reach = 0.0
+                    }
+                } else if (movingObjectPos != null) {
+                    val dist = eyePos.distanceTo(movingObjectPos.hitVec)
+                    if (dist < reach || reach == 0.0) {
+                        if (entity == entityRender.ridingEntity) {
+                            if (reach == 0.0) {
+                                entitySelected = entity
+                                hitVec = movingObjectPos.hitVec
                             }
+                        } else {
+                            entitySelected = entity
+                            hitVec = movingObjectPos.hitVec
+                            reach = dist
                         }
                     }
                 }
             }
-            if (zz9 < zzD && entity !is EntityLivingBase && entity !is EntityItemFrame) {
-                entity = null
-            }
-            mc.mcProfiler.endSection()
-            if (entity != null && zz6 != null) {
-                arrayOf<Any>(entity, zz6)
-            } else {
-                null
-            }
         }
+        if (reach < reachMax && entitySelected !is EntityLivingBase && entitySelected !is EntityItemFrame) {
+            entitySelected = null
+        }
+        mc.mcProfiler.endSection()
+        return if (entitySelected != null && hitVec != null)
+            arrayOf<Any>(entitySelected, hitVec)
+        else null
     }
 
-    private fun performReachAction(): Boolean {
-        val minDistance: Double = minReach.get()
-        val maxDistance: Double = maxReach.get()
+    fun canReach(): Boolean {
+        if (!PlayerUtils.isPlayerInGame) return false
+        if (weaponOnly.get() && !PlayerUtils.isCurrentHeldWeapon()) return false
+        if (movingOnly.get() && mc.thePlayer.motionX == 0.0 && mc.thePlayer.motionZ == 0.0) return false
+        if (sprintOnly && !mc.thePlayer.isSprinting) return false
 
-        val distance: Double = RandomUtils.nextDouble(minDistance, maxDistance)
-        val objectArray: Array<Any> = rayTrace(distance, 0.0) ?: return false
-        val entity: Entity = objectArray[0] as Entity
+        if (!hitThroughBlocks.get() && mc.objectMouseOver != null) {
+            val blockPos = mc.objectMouseOver.blockPos
+            if (blockPos != null && mc.thePlayer.getBlockState(blockPos).block != Blocks.air)
+                return false
+        }
+
+        val distance = RandomUtils.nextDouble(minReach.get(), maxReach.get())
+        val objectArray = rayTrace(distance, 0.0) ?: return false
+        val entity = objectArray[0] as Entity
         mc.objectMouseOver = MovingObjectPosition(entity, objectArray[1] as Vec3)
         mc.pointedEntity = entity
 
-        mc.playerController.attackEntity(mc.thePlayer, entity);
+        mc.playerController.attackEntity(mc.thePlayer, entity)
         return true
-    }
-
-    private fun isConditionsMet(): Boolean {
-        return !(weaponOnly.get() && isPlayerHoldingWeapon()) &&
-                !(movingOnly.get() && isPlayerNotMoving()) &&
-                !(sprintOnly.get() && !isPlayerSprinting()) &&
-                !(hitThroughBlocks.get() && isHittingBlock())
-    }
-
-    private fun isPlayerHoldingWeapon(): Boolean {
-        return mc.thePlayer.getHeldItem() != null
-    }
-
-    private fun isPlayerNotMoving(): Boolean {
-        return mc.thePlayer.motionX === 0.0 && mc.thePlayer.motionZ === 0.0
-    }
-
-    private fun isPlayerSprinting(): Boolean {
-        return mc.thePlayer.isSprinting()
-    }
-
-    private fun isHittingBlock(): Boolean {
-        val blockPos: BlockPos = mc.thePlayer.rayTrace(200.0, 1.0f).getBlockPos()
-        return blockPos != null && mc.theWorld.getBlockState(blockPos).getBlock() !== Blocks.air
     }
 
 }

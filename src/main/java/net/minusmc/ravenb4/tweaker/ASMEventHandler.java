@@ -74,7 +74,7 @@ public class ASMEventHandler {
    public static void onLivingUpdate() {
       NoSlow noSlow = RavenB4.moduleManager.getModule(NoSlow.class);
       if (noSlow != null && noSlow.getEnabled()) {
-         NoSlow.doNoSlow();
+         noSlow.doNoSlow();
       } else {
          mc.thePlayer.movementInput.moveStrafe *= 0.2F;
          mc.thePlayer.movementInput.moveForward *= 0.2F;
@@ -88,7 +88,7 @@ public class ASMEventHandler {
    public static void onAttackTargetEntityWithCurrentItem(Entity en) {
       KeepSprint keepSprint = RavenB4.moduleManager.getModule(KeepSprint.class);
       if (keepSprint != null && keepSprint.getEnabled()) {
-         KeepSprint.doKeepSprint();
+         keepSprint.doKeepSprint();
       } else {
          mc.thePlayer.motionX *= 0.6D;
          mc.thePlayer.motionZ *= 0.6D;
@@ -101,7 +101,8 @@ public class ASMEventHandler {
     */
    public static void onTick() {
       AutoClicker autoClicker = RavenB4.moduleManager.getModule(AutoClicker.class);
-      if (autoClicker == null || !autoClicker.getEnabled() || !Mouse.isButtonDown(0) || !Reach.call()) {
+      Reach reach = RavenB4.moduleManager.getModule(Reach.class);
+      if (autoClicker == null || !autoClicker.getEnabled() || !Mouse.isButtonDown(0) || !reach.canReach()) {
          mc.entityRenderer.getMouseOver(1.0F);
       }
    }

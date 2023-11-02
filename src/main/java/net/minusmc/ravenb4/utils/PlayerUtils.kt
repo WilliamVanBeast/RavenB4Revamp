@@ -145,7 +145,7 @@ object PlayerUtils: MinecraftInstance() {
         }
  	}
 
-	fun isWeapon(): Boolean {
+	fun isCurrentHeldWeapon(): Boolean {
 		if (mc.thePlayer.heldItem == null) return false
 		val item = mc.thePlayer.heldItem.item
 		val settingModule = RavenB4.moduleManager[Settings::class.java]!!
