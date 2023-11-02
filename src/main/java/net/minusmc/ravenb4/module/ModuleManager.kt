@@ -32,6 +32,7 @@ class ModuleManager {
 
         //Player
         addModule(DelayRemover())
+        addModule(SafeWalk())
         addModule(VClip())
 
         //Render

@@ -13,8 +13,6 @@ import net.minusmc.ravenb4.setting.impl.TickSetting
 import net.minusmc.ravenb4.utils.PlayerUtils
 
 class NoSlow : Module("NoSlow", ModuleCategory.movement) {
-    
-
     fun doNoSlow() {
         
     }

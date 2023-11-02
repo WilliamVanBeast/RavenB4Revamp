@@ -5,10 +5,7 @@ import net.minusmc.ravenb4.clickgui.raven.ClickGui
 import net.minusmc.ravenb4.module.Module
 import net.minusmc.ravenb4.module.ModuleManager
 import java.util.concurrent.Executors
-import net.minecraftforge.fml.common.event.FMLInitializationEvent
-import net.minecraftforge.fml.common.Mod.EventHandler
 
-@Mod(modid = "keystrokesmod", name = "KeystrokesMod", version = "KMV5", acceptedMinecraftVersions = "[1.8.9]")
 object RavenB4 {
 
     lateinit var moduleManager: ModuleManager
@@ -16,8 +13,7 @@ object RavenB4 {
 
     val executor = Executors.newScheduledThreadPool(2)
 
-    @EventHandler
-    fun init(event: FMLInitializationEvent) {
+    fun init() {
         moduleManager = ModuleManager()
         clickGui = ClickGui()
     }

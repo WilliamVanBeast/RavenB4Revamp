@@ -43,10 +43,10 @@ public class ASMEventHandler {
     */
    public static boolean onEntityMove(Entity entity) {
       if (entity == mc.thePlayer && mc.thePlayer.onGround) {
-         Module safeWalk = RavenB4.moduleManager.getModule(SafeWalk.class);
+         SafeWalk safeWalk = RavenB4.moduleManager.getModule(SafeWalk.class);
 
-         if (safeWalk != null && safeWalk.getEnabled() && !SafeWalk.doShift.get()) {
-            if (SafeWalk.blocksOnly.get()) {
+         if (safeWalk != null && safeWalk.getEnabled() && !SafeWalk.getShiftValue().get()) {
+            if (SafeWalk.getBlocksOnly().get()) {
                ItemStack i = mc.thePlayer.getHeldItem();
                if (i == null || !(i.getItem() instanceof ItemBlock)) {
                   return mc.thePlayer.isSneaking();
@@ -72,8 +72,8 @@ public class ASMEventHandler {
     * ASM Modules : NoSlow
     */
    public static void onLivingUpdate() {
-      Module noSlow = RavenB4.moduleManager.getModule(NoSlow.class);
-      if (noSlow != null && noSlow.isEnabled()) {
+      NoSlow noSlow = RavenB4.moduleManager.getModule(NoSlow.class);
+      if (noSlow != null && noSlow.getEnabled()) {
          NoSlow.doNoSlow();
       } else {
          mc.thePlayer.movementInput.moveStrafe *= 0.2F;
@@ -86,9 +86,9 @@ public class ASMEventHandler {
     * ASM Modules : KeepSprint
     */
    public static void onAttackTargetEntityWithCurrentItem(Entity en) {
-      Module keepSprint = RavenB4.moduleManager.getModule(KeepSprint.class);
-      if (keepSprint != null && keepSprint.isEnabled()) {
-         KeepSprint.doKeepSprint(en);
+      KeepSprint keepSprint = RavenB4.moduleManager.getModule(KeepSprint.class);
+      if (keepSprint != null && keepSprint.getEnabled()) {
+         KeepSprint.doKeepSprint();
       } else {
          mc.thePlayer.motionX *= 0.6D;
          mc.thePlayer.motionZ *= 0.6D;
@@ -100,8 +100,8 @@ public class ASMEventHandler {
     * ASM Modules : AutoClicker, Reach
     */
    public static void onTick() {
-      Module autoClicker = RavenB4.moduleManager.getModule(AutoClicker.class);
-      if (autoClicker == null || !autoClicker.isEnabled() || !Mouse.isButtonDown(0) || !Reach.call()) {
+      AutoClicker autoClicker = RavenB4.moduleManager.getModule(AutoClicker.class);
+      if (autoClicker == null || !autoClicker.getEnabled() || !Mouse.isButtonDown(0) || !Reach.call()) {
          mc.entityRenderer.getMouseOver(1.0F);
       }
    }
