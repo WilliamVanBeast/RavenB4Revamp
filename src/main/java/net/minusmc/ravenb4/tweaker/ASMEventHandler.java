@@ -7,7 +7,6 @@ import net.minusmc.ravenb4.module.modules.combat.Reach;
 import net.minusmc.ravenb4.module.modules.movement.KeepSprint;
 import net.minusmc.ravenb4.module.modules.movement.NoSlow;
 import net.minusmc.ravenb4.module.modules.others.NameHider;
-import net.minusmc.ravenb4.module.modules.other.StringEncrypt;
 import net.minusmc.ravenb4.module.modules.player.SafeWalk;
 import net.minusmc.ravenb4.module.modules.render.AntiShuffle;
 import net.minecraft.client.Minecraft;
@@ -21,7 +20,7 @@ public class ASMEventHandler {
 
    /**
     * called when Minecraft format text
-    * ASM Modules : NameHider, AntiShuffle, StringEncrypt
+    * ASM Modules : NameHider, AntiShuffle
     */
    public static String getUnformattedTextForChat(String s) {
       NameHider nameHider = RavenB4.moduleManager.getModule(NameHider.class);
@@ -32,11 +31,6 @@ public class ASMEventHandler {
       AntiShuffle antiShuffle = RavenB4.moduleManager.getModule(AntiShuffle.class);
       if (antiShuffle != null && antiShuffle.getEnabled()) {
          s = antiShuffle.getUnformattedTextForChat(s);
-      }
-
-      StringEncrypt stringEncrypt = RavenB4.moduleManager.getModule(StringEncrypt.class);
-      if (stringEncrypt != null && stringEncrypt.getEnabled()) {
-         s = stringEncrypt.getUnformattedTextForChat(s);
       }
 
       return s;
@@ -94,7 +88,7 @@ public class ASMEventHandler {
    public static void onAttackTargetEntityWithCurrentItem(Entity en) {
       Module keepSprint = RavenB4.moduleManager.getModule(KeepSprint.class);
       if (keepSprint != null && keepSprint.isEnabled()) {
-         KeepSprint.sl(en);
+         KeepSprint.doKeepSprint(en);
       } else {
          mc.thePlayer.motionX *= 0.6D;
          mc.thePlayer.motionZ *= 0.6D;

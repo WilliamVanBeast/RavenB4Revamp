@@ -35,7 +35,7 @@ open class Module(val name: String, val category: ModuleCategory): MinecraftInst
     fun applyConfigFromJson(data: JsonObject) {
         try {
             keycode = data["keycode"].asInt
-            setToggled(data["enabled"].asBoolean)
+            toggle(data["enabled"].asBoolean)
             val settingsData = data["settings"].getAsJsonObject()
             for (setting in this.settings) {
                 if (settingsData.has(setting.name)) {
@@ -76,7 +76,7 @@ open class Module(val name: String, val category: ModuleCategory): MinecraftInst
         MinecraftForge.EVENT_BUS.unregister(this)
     }
 
-    fun setToggled(enabled: Boolean) {
+    fun toggle(enabled: Boolean) {
         if (enabled) {
             enable()
         } else {
@@ -118,7 +118,7 @@ open class Module(val name: String, val category: ModuleCategory): MinecraftInst
 
     fun resetToDefaults() {
         keycode = defualtKeyCode
-        setToggled(defaultEnabled)
+        toggle(defaultEnabled)
         for (setting in settings) {
             setting.resetToDefaults()
         }

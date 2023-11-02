@@ -3,6 +3,9 @@ package net.minusmc.ravenb4.module.modules.combat
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.item.ItemBlock
+import net.minecraft.init.Blocks
+import net.minecraft.block.BlockLiquid
+import net.minecraft.client.settings.KeyBinding
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent
@@ -12,6 +15,9 @@ import net.minusmc.ravenb4.setting.impl.DescriptionSetting
 import net.minusmc.ravenb4.setting.impl.SliderSetting
 import net.minusmc.ravenb4.setting.impl.TickSetting
 import net.minusmc.ravenb4.utils.PlayerUtils
+import net.minusmc.ravenb4.utils.ClientUtils
+import net.minusmc.ravenb4.utils.RandomUtils
+import net.minusmc.ravenb4.tweaker.MinecraftFields
 import org.lwjgl.input.Keyboard
 import org.lwjgl.input.Mouse
 import java.lang.reflect.InvocationTargetException
@@ -37,7 +43,7 @@ class AutoClicker: Module("AutoClicker", ModuleCategory.combat) {
     private var leftUpTime = 0L
     private var leftk = 0L
     private var leftl = 0L
-    private var leftm = 0L
+    private var leftm = 0.0
     private var leftn = false
 
     private var blocking = false
@@ -104,7 +110,7 @@ class AutoClicker: Module("AutoClicker", ModuleCategory.combat) {
     }
 
     fun click(keyCode: Int, mouseButton: Int) {
-        if (breakBlocks.get && mouseButton == 0 && mc.objectMouseOver != null) {
+        if (breakBlocks.get() && mouseButton == 0 && mc.objectMouseOver != null) {
             val blockPos = mc.objectMouseOver.blockPos
             if (blockPos != null) {
                 val block = mc.theWorld.getBlockState(blockPos).block

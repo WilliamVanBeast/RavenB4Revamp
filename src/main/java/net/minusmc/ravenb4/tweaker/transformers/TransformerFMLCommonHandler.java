@@ -2,7 +2,7 @@ package net.minusmc.ravenb4.tweaker.transformers;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
-import net.minusmc.ravenb4.main.Raven;
+import net.minusmc.ravenb4.RavenB4;
 import net.minusmc.ravenb4.module.Module;
 import net.minusmc.ravenb4.module.ModuleManager;
 import net.minusmc.ravenb4.module.modules.client.ClientNameSpoof;
@@ -51,7 +51,7 @@ public class TransformerFMLCommonHandler implements Transformer {
     }
 
     public static String getModName() {
-        Module cns = Raven.moduleManager.getModuleByClazz(ClientNameSpoof.class);
+        Module cns = RavenB4.moduleManager.getModule(ClientNameSpoof.class);
         if (cns != null && cns.isEnabled()){
             return ClientNameSpoof.newName;
         }

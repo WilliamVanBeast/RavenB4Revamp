@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent
 import net.minusmc.ravenb4.module.Module
 import net.minusmc.ravenb4.module.ModuleCategory
 import net.minusmc.ravenb4.setting.impl.TickSetting
+import net.minusmc.ravenb4.tweaker.MinecraftFields
 import java.lang.reflect.Field
 
 

@@ -18,5 +18,5 @@ object RandomUtils {
 
 	fun nextDouble(value1: SliderSetting, value2: SliderSetting) = nextDouble(value1.get(), value2.get())
 
-	fun nextDouble(value: DoubleSliderSetting) = nextDouble(value.min, value.max)
+	fun nextDouble(value: DoubleSliderSetting) = nextDouble(value.minValue, value.maxValue)
 }

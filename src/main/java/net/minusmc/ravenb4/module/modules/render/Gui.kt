@@ -14,7 +14,7 @@ class Gui: Module("Gui", ModuleCategory.render) {
     }
 
     override fun onEnable() {
-        this.setToggled(false)
+        this.toggle(false)
         mc.displayGuiScreen(RavenB4.clickGui)
     }
 

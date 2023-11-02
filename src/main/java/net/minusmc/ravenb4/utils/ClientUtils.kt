@@ -2,6 +2,10 @@ package net.minusmc.ravenb4.utils
 
 import net.minecraft.scoreboard.ScorePlayerTeam
 import net.minecraft.util.StringUtils
+import net.minusmc.ravenb4.tweaker.MinecraftFields
+import net.minecraftforge.client.event.MouseEvent
+import net.minecraftforge.common.MinecraftForge
+import java.nio.ByteBuffer
 
 object ClientUtils: MinecraftInstance() {
 	fun reformat(txt: String) = txt.replace("&", "§")

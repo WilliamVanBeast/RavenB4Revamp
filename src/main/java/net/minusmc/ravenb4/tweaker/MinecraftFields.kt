@@ -7,9 +7,11 @@ import net.minecraft.network.play.server.S12PacketEntityVelocity
 import net.minecraft.entity.projectile.EntityArrow
 import net.minecraft.client.renderer.EntityRenderer
 import net.minecraft.client.multiplayer.PlayerControllerMP
+import net.minecraft.entity.EntityLivingBase
+import java.lang.reflect.Field
 import org.lwjgl.input.Mouse
 
-enum class MinecraftFields(val name: String, val method: String, val clazz: Class<*>) {
+enum class MinecraftFields(val methodName: String, val method: String, val clazz: Class<*>) {
 	leftClickCounter("leftClickCounter", "field_71429_W", Minecraft::class.java),
 	button("button", "", MouseEvent::class.java),
 	lastReportedYaw("lastReportedYaw", "field_175164_bL", EntityPlayerSP::class.java),

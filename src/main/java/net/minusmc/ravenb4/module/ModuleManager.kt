@@ -18,6 +18,7 @@ class ModuleManager {
         //Combat
         addModule(AutoClicker())
         addModule(AntiKnockback())
+        addModule(KillAura())
         addModule(Reach())
 
         //Movement
