@@ -45,8 +45,8 @@ public class ASMEventHandler {
       if (entity == mc.thePlayer && mc.thePlayer.onGround) {
          Module safeWalk = RavenB4.moduleManager.getModule(SafeWalk.class);
 
-         if (safeWalk != null && safeWalk.getEnabled() && !SafeWalk.doShift.isToggled()) {
-            if (SafeWalk.blocksOnly.isToggled()) {
+         if (safeWalk != null && safeWalk.getEnabled() && !SafeWalk.doShift.get()) {
+            if (SafeWalk.blocksOnly.get()) {
                ItemStack i = mc.thePlayer.getHeldItem();
                if (i == null || !(i.getItem() instanceof ItemBlock)) {
                   return mc.thePlayer.isSneaking();
@@ -74,7 +74,7 @@ public class ASMEventHandler {
    public static void onLivingUpdate() {
       Module noSlow = RavenB4.moduleManager.getModule(NoSlow.class);
       if (noSlow != null && noSlow.isEnabled()) {
-         NoSlow.sl();
+         NoSlow.doNoSlow();
       } else {
          mc.thePlayer.movementInput.moveStrafe *= 0.2F;
          mc.thePlayer.movementInput.moveForward *= 0.2F;

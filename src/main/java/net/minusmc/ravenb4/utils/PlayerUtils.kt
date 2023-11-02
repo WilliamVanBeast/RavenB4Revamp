@@ -71,7 +71,7 @@ object PlayerUtils: MinecraftInstance() {
  		val x = mc.thePlayer.posX
  		val y = mc.thePlayer.posY - 1.0
  		val z = mc.thePlayer.posZ
- 		return mc.theWorld.isAirBlock(BlockPos(floor(x), floor(y), floor(z)))
+ 		return mc.theWorld.isAirBlock(BlockPos(x, y, z))
  	}
 
  	fun playerUnderBlock(): Boolean {

@@ -23,6 +23,8 @@ class ModuleManager {
 
         //Movement
         addModule(SlyPort())
+        addModule(KeepSprint())
+        addModule(NoSlow())
 
         //World
         addModule(BreakProgress())
