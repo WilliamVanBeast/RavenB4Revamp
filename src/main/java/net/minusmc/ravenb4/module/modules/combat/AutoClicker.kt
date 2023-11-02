@@ -138,10 +138,25 @@ class AutoClicker: Module("AutoClicker", ModuleCategory.combat) {
             if (System.currentTimeMillis() > leftUpTime) {
                 KeyBinding.setKeyBindState(keyCode, true)
                 KeyBinding.onTick(keyCode)
-                genLeftTimings()
+                ClientUtils.setMouseButtonState(mouseButton, true)
 
+                if (mouseButton == 0 && blockHitChance.get() > 0.0 && Mouse.isButtonDown(1) && Random.nextDouble() >= (100.0 - blockHitChance.get()) / 100.0) {
+                    KeyBinding.setKeyBindState(mc.gameSettings.keyBindUseItem.keyCode, true)
+                    KeyBinding.onTick(mc.gameSettings.keyBindUseItem.keyCode)
+                    ClientUtils.setMouseButtonState(1, true)
+                }
+
+                genLeftTimings()
+            } else if (System.currentTimeMillis() > leftDownTime) {
+                KeyBinding.setKeyBindState(keyCode, true)
+                ClientUtils.setMouseButtonState(mouseButton, false)
+                if (mouseButton == 0 && blockHitChance.get() > 0.0 && Random.nextDouble() >= (100.0 - blockHitChance.get()) / 100.0) {
+                    KeyBinding.setKeyBindState(mc.gameSettings.keyBindUseItem.keyCode, false)
+                    ClientUtils.setMouseButtonState(1, false)
+                }
             }
-        }
+        } else
+            genLeftTimings()
     }
 
     fun genLeftTimings() {

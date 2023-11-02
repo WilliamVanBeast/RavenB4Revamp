@@ -31,4 +31,15 @@ object ClientUtils: MinecraftInstance() {
 		}
 		return ArrayList(players)
 	}
+
+	fun setMouseButtonState(mouseButton: Int, held: Boolean) {
+		val event = MouseEvent()
+		MinecraftFields.button.field.set(event, mouseButton)
+		MinecraftFields.running.field.set(event, held)
+
+		MinecraftForge.EVENT_BUS.post(event)
+		val buttons = MinecraftFields.buttons.field.get(null) as ByteBuffer
+		buttons.put(mouseButton, if (held) 1 else 0)
+		MinecraftFields.buttons.field.set(event, buttons)
+	}
 }

@@ -1,6 +1,15 @@
 package net.minusmc.ravenb4.tweaker
 
-enum class Fields(val name: String, val method: String, val clazz: Class<*>) {
+import net.minecraft.client.Minecraft
+import net.minecraftforge.client.event.MouseEvent
+import net.minecraft.client.entity.EntityPlayerSP
+import net.minecraft.network.play.server.S12PacketEntityVelocity
+import net.minecraft.entity.projectile.EntityArrow
+import net.minecraft.client.renderer.EntityRenderer
+import net.minecraft.client.multiplayer.PlayerControllerMP
+import org.lwjgl.input.Mouse
+
+enum class MinecraftFields(val name: String, val method: String, val clazz: Class<*>) {
 	leftClickCounter("leftClickCounter", "field_71429_W", Minecraft::class.java),
 	button("button", "", MouseEvent::class.java),
 	lastReportedYaw("lastReportedYaw", "field_175164_bL", EntityPlayerSP::class.java),
@@ -25,5 +34,7 @@ enum class Fields(val name: String, val method: String, val clazz: Class<*>) {
 	useShader("useShader", "field_175083_ad", EntityRenderer::class.java),
 	buttonstate("buttonstate", "", MouseEvent::class.java),
 	running("running", "field_71425_J", Minecraft::class.java),
-	curBlockDamageMP("curBlockDamageMP", "field_78770_f", PlayerControllerMP::class.java),
+	curBlockDamageMP("curBlockDamageMP", "field_78770_f", PlayerControllerMP::class.java);
+
+	lateinit var field: Field
 }
