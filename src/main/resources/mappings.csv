@@ -1,28 +1,28 @@
 Class Obf,Class name,Status
 a,SumoTimerTask,Done
-aa,TransformerMinecraft,
+aa,TransformerMinecraft,Done
 ab,TargetHUD,
 ac,AutoPlace,
 ad,Setting,
 ae,Teleport,
-af,Duels Stats,
+af,Duels Stats,Done
 ag,Timer,Done
 ah,SpeedMine Enum,
 ai,?,
 aj,Bedwar Helper,
 am,TagUtils,
-an,EnumTransformer,
+an,MinecraftFields2,
 ao,Auth,
 ap,Scaffold2,
 aq,Quakecraft,
 as,BreakProgress,
-at,AutoClicker,
+at,AutoClicker,Done
 au,Command Line,
 av,Bhop,
 aw,TPAura,
-ax,Slyport,
+ax,Slyport,Done
 ay,AntiBot,
-az,Constant var,
+az,KeyStorkes,Done
 b,Bridge Info,
 ba,Tracers,
 bb,?,
@@ -30,15 +30,15 @@ bc,KeyStrokeMod,
 bd,RotationUtils,Done
 be,Render?,
 bf,AntiShuffle,Done
-bg,Fake Chat,
+bg,Fake Chat,Done
 bh,?,
 bi,TransformerMinecraft,
 bj,SessionUtils?,
 bk,Name Hider,Done
 bq,FastPlace,
-bs,AntiKnockback,Done?
+bs,AntiKnockback,
 bu,HypixelUtils,
-bv,TransformerFontRenderer,
+bv,TransformerFontRenderer,Done
 bx,Reach,Done
 by,ChestESP,
 bz,Speed,
@@ -51,14 +51,14 @@ ce,NoSlow,
 cg,Murder Mystery,
 ch,HUD,
 ci,?,
-cj,Gui,
-ck,Config,
-cm,Nametags,
+cj,Gui,Done
+ck,ConfigManager,
+cm,NameTags,Done
 cn,URLUtils,
 co,AutoJump,
 cp,Latency Alerts,
 cq,?,
-cr,Delay Remover,
+cr,Delay Remover,Done
 cs,?,
 cu,?,
 cw,Anticheat,
@@ -72,21 +72,21 @@ dd,ViewPackets,
 dg,AutoWho,
 dh,InvManager,
 di,Enum??,
-dj,KeyStrokeCommand,
+dj,KeyStrokeCommand,Done
 dk,Timer,
 dl,Check VPN,
 dn,Sumo Fences,Done
 do,?,
-dp,TransformerLoader,
+dp,TransformerLoader,Done
 dr,ColorUtils,
 ds,Velocity,
 dt,Sprint,
-du,Spin,
-dv,ClassUtils???,
+du,Spin,Done
+dv,Obfuscated Module Class Utils,Ignore
 dw,Wtap,
 dx,Xray,
-dy,TransformerEntityPlayerSP,
-ea,Transformer?,
+dy,TransformerEntityPlayerSP,Done
+ea,Transformer?,Done
 eb,?,
 ec,?,
 ed,Extra bobbing,
@@ -98,13 +98,13 @@ ei,AntiAFK,
 ej,?,
 el,?,
 em,?,
-en,Safewalk,
-eo,TransformerFontRenderer,
+en,SafeWalk,Done
+eo,TransformerFontRenderer,Done
 ep,?,
 eq,KeepSprint,Done
 er,MinecraftFields Init,
-es,KeybindListener?,
-et,BoolValue,
+es,KeybindListener,
+et,BoolValue,Done
 eu,LongJump,
 ev,Freecam,
 ew,?,
@@ -116,7 +116,7 @@ fa,InvMove,
 fb,ModuleManager,Done
 fc,?,
 fd,?,
-fe,SliderSetting,
+fe,SliderSetting,Done
 ff,Indicators,
 fg,?,
 fh,?,
@@ -145,26 +145,26 @@ gf,ClickerListener?,
 gg,BurstClicker,
 gh,Comparator,
 gi,MovementUtils?,
-gj,?,
+gj,Obfuscated Module Class Utils,Ignore
 gk,Message?,
 gs,Module,
 gv,WorldEnum,
 h,PacketUtils,
 ha,MinecraftInstance,Done
 hc,CustomBlockPos,
-hd,ASMTransformerClass,
-he,TransformerGuiUtilRenderComponents,
+hd,ASMTransformerClass,Done
+he,TransformerGuiUtilRenderComponents,Done
 hf,RodAimbot,
-hg,ComboSetting,
+hg,ComboSetting,Done
 hi,HUDEditor,
 hj,PacketUtils?,
-hk,KillAura,
+hk,KillAura,Done
 hl,Enum?,
 hm,EntityUtils?,
-hn,TransformerMinecraft,
+hn,TransformerMinecraft,Done
 ho,?,
 hp,AutoTool,
-hq,Transformer?,
+hq,Transformer?,Done
 hr,TrashFunction,Done
 hs,Settings,Done
 hu,?,
@@ -180,7 +180,7 @@ m,Hitbox,
 n,Fastmine,
 o,?,
 p,Const?,
-q,TransformerEntityPlayer,
+q,TransformerEntityPlayer,Done
 r,ColorUtils?,
 s,NodeUtils?,
 t,?,

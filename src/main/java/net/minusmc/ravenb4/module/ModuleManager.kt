@@ -25,7 +25,7 @@ class ModuleManager {
     lateinit var reach: Reach
     lateinit var hud: HUD
 
-    init {
+    fun registerModule() {
         //Combat
         autoClicker = AutoClicker()
         addModule(autoClicker)

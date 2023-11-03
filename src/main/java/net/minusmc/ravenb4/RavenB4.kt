@@ -15,6 +15,7 @@ object RavenB4 {
 
     fun init() {
         moduleManager = ModuleManager()
+        moduleManager.registerModule()
         clickGui = ClickGui()
     }
 }
