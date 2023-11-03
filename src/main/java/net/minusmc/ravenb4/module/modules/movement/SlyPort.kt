@@ -27,7 +27,7 @@ class SlyPort : Module("SlyPort", ModuleCategory.movement) {
     override fun onEnable() {
         val en = getEntity()
         if (en != null) tp(en)
-        disable()
+        unregister()
     }
 
     private fun tp(en: Entity) {

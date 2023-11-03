@@ -6,15 +6,10 @@ import net.minusmc.ravenb4.module.ModuleCategory
 import net.minusmc.ravenb4.setting.impl.SliderSetting
 import org.lwjgl.input.Keyboard
 
-
-class Gui: Module("Gui", ModuleCategory.render) {
-
-    init {
-        setKeyCode(Keyboard.KEY_RSHIFT)
-    }
+class Gui: Module("Gui", ModuleCategory.render, keyCode = Keyboard.KEY_RSHIFT) {
 
     override fun onEnable() {
-        this.toggle(false)
+        toggleModule()
         mc.displayGuiScreen(RavenB4.clickGui)
     }
 

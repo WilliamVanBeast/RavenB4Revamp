@@ -15,9 +15,6 @@ class DelayRemover: Module("DelayRemover", ModuleCategory.player) {
     private val hitreg = TickSetting("1.7 hitreg", true)
     private val jumpTicks = TickSetting("Remove jump ticks", false)
 
-    private val leftClickerField = MinecraftFields.leftClickCounter.field
-    private val jumpTicksField = MinecraftFields.jumpTicks.field
-
     init {
         addSetting(hitreg)
         addSetting(jumpTicks)
@@ -28,7 +25,7 @@ class DelayRemover: Module("DelayRemover", ModuleCategory.player) {
         if (event.phase == TickEvent.Phase.END) {
             if (hitreg.get()) {
                 try {
-                    leftClickerField.set(mc, 0)
+                    MinecraftFields.leftClickCounter.field.set(mc, 0)
                 } catch (e: IllegalAccessException) {
                 } catch (e: IndexOutOfBoundsException) {
                 }
@@ -36,7 +33,7 @@ class DelayRemover: Module("DelayRemover", ModuleCategory.player) {
 
             if (jumpTicks.get()) {
                  try {
-                    jumpTicksField.set(mc.thePlayer, 0)
+                    MinecraftFields.jumpTicks.field.set(mc.thePlayer, 0)
                 } catch (e: IllegalAccessException) {
                 } catch (e: IndexOutOfBoundsException) {
                 }

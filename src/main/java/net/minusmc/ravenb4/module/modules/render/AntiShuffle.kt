@@ -7,7 +7,7 @@ import net.minusmc.ravenb4.setting.impl.DescriptionSetting
 import org.lwjgl.input.Keyboard
 
 
-class AntiShuffle: Module("AntiShuffle", ModuleCategory.funs) {
+class AntiShuffle: Module("AntiShuffle", ModuleCategory.render) {
     val obfString = "§k"
 
     init {

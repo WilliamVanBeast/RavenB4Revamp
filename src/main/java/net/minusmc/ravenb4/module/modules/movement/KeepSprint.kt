@@ -32,9 +32,9 @@ class KeepSprint : Module("KeepSprint", ModuleCategory.movement) {
             var dist = -1.0
             var eyePos = mc.thePlayer.getPositionEyes(1f)
             val killAura = RavenB4.moduleManager[KillAura::class.java]!!
-            if (killAura.enabled && killAura.target != null) {
+            if (killAura.state && killAura.target != null) {
                 dist = eyePos.distanceTo(killAura.target!!.getPositionEyes(1f))
-            } else if (RavenB4.moduleManager[Reach::class.java]!!.enabled) {
+            } else if (RavenB4.moduleManager[Reach::class.java]!!.state) {
                 dist = eyePos.distanceTo(mc.objectMouseOver.hitVec)
             }
 

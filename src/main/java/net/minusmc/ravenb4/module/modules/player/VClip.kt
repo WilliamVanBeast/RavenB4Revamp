@@ -54,6 +54,6 @@ class VClip : Module("VClip", ModuleCategory.player) {
                 //gd.bm("&7Teleported you " + (var1 > 0.0D ? "upwards" : "downwards") + " by &b" + var1 + " &7blocks.");
             }
         }
-        enabled = false
+        state = false
     }
 }

@@ -19,7 +19,7 @@ class FakeChat: Module("FakeChat", ModuleCategory.other){
             for (s in split) sendMessage(s)
         } else sendMessage(message)
 
-        disable()
+        unregister()
     }
 
     private fun sendMessage(txt: String) {

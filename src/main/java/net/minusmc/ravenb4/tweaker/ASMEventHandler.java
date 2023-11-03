@@ -23,13 +23,13 @@ public class ASMEventHandler {
     * ASM Modules : NameHider, AntiShuffle
     */
    public static String getUnformattedTextForChat(String s) {
-      NameHider nameHider = RavenB4.moduleManager.getModule(NameHider.class);
-      if (nameHider != null && nameHider.getEnabled()) {
+      NameHider nameHider = RavenB4.moduleManager.getNameHider();
+      if (nameHider != null && nameHider.getState()) {
          s = nameHider.getUnformattedTextForChat(s);
       }
 
-      AntiShuffle antiShuffle = RavenB4.moduleManager.getModule(AntiShuffle.class);
-      if (antiShuffle != null && antiShuffle.getEnabled()) {
+      AntiShuffle antiShuffle = RavenB4.moduleManager.getAntiShuffle();
+      if (antiShuffle != null && antiShuffle.getState()) {
          s = antiShuffle.getUnformattedTextForChat(s);
       }
 
@@ -43,9 +43,9 @@ public class ASMEventHandler {
     */
    public static boolean onEntityMove(Entity entity) {
       if (entity == mc.thePlayer && mc.thePlayer.onGround) {
-         SafeWalk safeWalk = RavenB4.moduleManager.getModule(SafeWalk.class);
+         SafeWalk safeWalk = RavenB4.moduleManager.getSafeWalk();
 
-         if (safeWalk != null && safeWalk.getEnabled() && !safeWalk.getShiftValue().get()) {
+         if (safeWalk != null && safeWalk.getState() && !safeWalk.getShiftValue().get()) {
             if (safeWalk.getBlocksOnly().get()) {
                ItemStack i = mc.thePlayer.getHeldItem();
                if (i == null || !(i.getItem() instanceof ItemBlock)) {
@@ -72,8 +72,8 @@ public class ASMEventHandler {
     * ASM Modules : NoSlow
     */
    public static void onLivingUpdate() {
-      NoSlow noSlow = RavenB4.moduleManager.getModule(NoSlow.class);
-      if (noSlow != null && noSlow.getEnabled()) {
+      NoSlow noSlow = RavenB4.moduleManager.getNoSlow();
+      if (noSlow != null && noSlow.getState()) {
          noSlow.doNoSlow();
       } else {
          mc.thePlayer.movementInput.moveStrafe *= 0.2F;
@@ -86,8 +86,8 @@ public class ASMEventHandler {
     * ASM Modules : KeepSprint
     */
    public static void onAttackTargetEntityWithCurrentItem(Entity en) {
-      KeepSprint keepSprint = RavenB4.moduleManager.getModule(KeepSprint.class);
-      if (keepSprint != null && keepSprint.getEnabled()) {
+      KeepSprint keepSprint = RavenB4.moduleManager.getKeepSprint();
+      if (keepSprint != null && keepSprint.getState()) {
          keepSprint.doKeepSprint();
       } else {
          mc.thePlayer.motionX *= 0.6D;
@@ -100,9 +100,9 @@ public class ASMEventHandler {
     * ASM Modules : AutoClicker, Reach
     */
    public static void onTick() {
-      AutoClicker autoClicker = RavenB4.moduleManager.getModule(AutoClicker.class);
-      Reach reach = RavenB4.moduleManager.getModule(Reach.class);
-      if (autoClicker == null || !autoClicker.getEnabled() || !Mouse.isButtonDown(0) || !reach.canReach()) {
+      AutoClicker autoClicker = RavenB4.moduleManager.getAutoClicker();
+      Reach reach = RavenB4.moduleManager.getReach();
+      if (autoClicker == null || !autoClicker.getState() || !Mouse.isButtonDown(0) || !reach.canReach()) {
          mc.entityRenderer.getMouseOver(1.0F);
       }
    }

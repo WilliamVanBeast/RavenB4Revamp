@@ -4,135 +4,73 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import net.minecraft.client.Minecraft
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.common.FMLCommonHandler
+import net.minusmc.ravenb4.RavenB4
 import net.minusmc.ravenb4.setting.Setting
 import net.minusmc.ravenb4.setting.impl.TickSetting
 import net.minusmc.ravenb4.utils.MinecraftInstance
 import org.lwjgl.input.Keyboard
 
-open class Module(val name: String, val category: ModuleCategory): MinecraftInstance() {
+open class Module(val name: String, val category: ModuleCategory, var keyCode: Int): MinecraftInstance() {
+    constructor(name: String, category: ModuleCategory): this(name, category, 0)
+
     protected val settings = mutableListOf<Setting<*>>()
-    var enabled = false
-    protected val defaultEnabled = enabled
+    var state = false
+    var toggled = false
 
-    private var keycode = 0
-    protected val defualtKeyCode = keycode
-
-    var isToggled = false
-
-    fun getConfigAsJson(): JsonObject {
-        val settings = JsonObject()
-        for (setting in this.settings) {
-            val settingData: JsonElement = setting.getConfigAsJson()
-            settings.add(setting.name, settingData)
+    fun keybind(): Boolean {
+        if (keyCode == 0) return false
+        if (!toggled && Keyboard.isKeyDown(keyCode)) {
+            toggleModule()
+            toggled = false
+        } else if (!Keyboard.isKeyDown(keyCode)) {
+            toggled = true
         }
-        val data = JsonObject()
-        data.addProperty("enabled", enabled)
-        data.addProperty("keycode", keycode)
-        data.add("settings", settings)
-        return data
+        return toggled
     }
 
-    fun applyConfigFromJson(data: JsonObject) {
-        try {
-            keycode = data["keycode"].asInt
-            toggle(data["enabled"].asBoolean)
-            val settingsData = data["settings"].getAsJsonObject()
-            for (setting in this.settings) {
-                if (settingsData.has(setting.name)) {
-                    setting.applyConfigFromJson(
-                        settingsData[setting.name].getAsJsonObject()
-                    )
-                }
-            }
-        } catch (ignored: NullPointerException) {}
-    }
-
-    fun setKeyCode(key: Int) {
-        keycode = key;
-    }
-
-    fun keybind() {
-        if (keycode != 0 && canBeEnabled()) {
-            if (!this.isToggled && Keyboard.isKeyDown(keycode)) {
-                toggle()
-                this.isToggled = true
-            } else if (!Keyboard.isKeyDown(keycode)) {
-                this.isToggled = false
-            }
+    fun register() {
+        toggled = true
+        RavenB4.moduleManager.enModulesList.add(this)
+        if (RavenB4.moduleManager.hud.state) {
+            RavenB4.moduleManager.sort()
         }
-    }
-
-    fun canBeEnabled(): Boolean = true
-
-    fun enable() {
-        enabled = true
-        onEnable()
         MinecraftForge.EVENT_BUS.register(this)
+        FMLCommonHandler.instance().bus().register(this)
+        onEnable()
     }
 
-    fun disable() {
-        enabled = false
-        onDisable()
+    fun unregister() {
+        toggled = false
+        RavenB4.moduleManager.enModulesList.remove(this)
         MinecraftForge.EVENT_BUS.unregister(this)
+        FMLCommonHandler.instance().bus().unregister(this)
+        onDisable()
     }
 
-    fun toggle(enabled: Boolean) {
-        if (enabled) {
-            enable()
-        } else {
-            disable()
-        }
+    fun toggleModule() {
+        if (toggled) register()
+        else unregister()
     }
 
-    fun getSettingByName(name: String?): Setting<*>? {
-        for (setting in settings) {
-            if (setting.name.equals(name, true)) return setting
-        }
-        return null
+    open fun onEnable() {
+
     }
 
-    fun addSetting(setting: Setting<*>) = settings.add(setting)
+    open fun onDisable() {
 
-    open fun onEnable() {}
-
-    open fun onDisable() {}
-
-    fun toggle() {
-        if (enabled) disable()
-        else enable()
     }
 
-    fun update() {}
+    open fun update() {
 
-    open fun guiUpdate() {}
-
-    fun guiButtonToggled(b: TickSetting?) {}
-
-    fun getKeycode(): Int {
-        return keycode
     }
 
-    fun setbind(keybind: Int) {
-        keycode = keybind
+    open fun guiUpdate() {
+
     }
 
-    fun resetToDefaults() {
-        keycode = defualtKeyCode
-        toggle(defaultEnabled)
-        for (setting in settings) {
-            setting.resetToDefaults()
-        }
+    fun addSetting(setting: Setting<*>) {
+        settings.add(setting)
     }
-
-    fun onGuiClose() {}
-
-    fun getBindAsString(): String {
-        return if (keycode == 0) "None" else Keyboard.getKeyName(keycode)
-    }
-
-    fun clearBinds() {
-        keycode = 0
-    }
-
 
 }

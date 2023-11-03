@@ -40,12 +40,12 @@ class Reach: Module("Reach", ModuleCategory.combat) {
     fun onMouseClick(event: MouseEvent) {
         if (!PlayerUtils.isPlayerInGame || event.button < 0 || !event.buttonstate) return
         val autoClicker = RavenB4.moduleManager[AutoClicker::class.java]!!
-        if (autoClicker.enabled && autoClicker.leftClicker.get() && Mouse.isButtonDown(0)) return
+        if (autoClicker.state && autoClicker.leftClicker.get() && Mouse.isButtonDown(0)) return
         canReach()
     }
 
     fun rayTrace(reachMax: Double, exMul: Double): Array<Any>? {
-        var reachMax = if (!enabled) {
+        var reachMax = if (!state) {
             if (mc.playerController.extendedReach()) 6.0 else 3.0
         } else reachMax
 

@@ -39,4 +39,6 @@ enum class MinecraftFields(val methodName: String, val method: String, val clazz
 	curBlockDamageMP("curBlockDamageMP", "field_78770_f", PlayerControllerMP::class.java);
 
 	lateinit var field: Field
+
+	fun isInited() = ::field.isInitialized	
 }

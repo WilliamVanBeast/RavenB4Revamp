@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minusmc.ravenb4.utils.FieldUtils;
 
 import net.minusmc.ravenb4.RavenB4;
 
@@ -29,6 +30,7 @@ public class KeyStrokeMod {
         MinecraftForge.EVENT_BUS.register(new KeyStrokeRenderer());
         MinecraftForge.EVENT_BUS.register(new MouseManager());
         MinecraftForge.EVENT_BUS.register(this);
+        FieldUtils.INSTANCE.init();
         //ClientConfig.applyKeyStrokeSettingsFromConfigFile();
         RavenB4.INSTANCE.init();
     }
